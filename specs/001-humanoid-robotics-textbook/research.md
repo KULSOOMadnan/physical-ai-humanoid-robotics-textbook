@@ -1,71 +1,64 @@
-# Research Findings: Physical AI & Humanoid Robotics Textbook
+# Research: Physical AI & Humanoid Robotics Textbook
 
-**Date**: 2025-12-04
-**Feature**: 001-humanoid-robotics-textbook
-**Plan**: specs/001-humanoid-robotics-textbook/plan.md
+## Decision: Programming Language
 
-## Technology Stack Decisions
+*   **Choice**: Python 3.10+
+*   **Rationale**: Python is the de facto standard for AI, robotics, and scientific computing, offering a rich ecosystem of libraries (PyTorch, TensorFlow, NumPy, SciPy) and strong integration with ROS 2 (rclpy). Its readability and extensive community support make it ideal for an educational textbook.
+*   **Alternatives Considered**:
+    *   C++: Offers performance benefits crucial for low-level robot control but has a steeper learning curve and less immediate productivity for high-level AI/robotics development, making it less suitable as the primary language for an introductory textbook.
+    *   Julia: Excellent for numerical and scientific computing with performance close to C++, but its ecosystem for robotics and AI is less mature than Python's.
 
-### Programming Language: Python 3.10+
+## Decision: Documentation Platform
 
-*   **Decision**: Python 3.10+ will be the primary programming language for all code examples and practical exercises.
-*   **Rationale**:
-    *   **Accessibility**: Python is widely adopted in AI, robotics, and academia, making it accessible to the target audience (computer science and engineering students, robotics enthusiasts).
-    *   **Rich Ecosystem**: Extensive libraries (NumPy, SciPy, PyTorch, TensorFlow, Matplotlib, Plotly) directly support the textbook's focus areas (AI/ML, control, visualization).
-    *   **Integration with Robotics Frameworks**: Python has strong bindings and support for ROS 2 and various simulation environments.
-*   **Alternatives Considered**: C++ (rejected for its steeper learning curve for the target audience in an introductory context, though essential for low-level robotics), MATLAB (rejected due to proprietary nature and less broad appeal in modern AI/robotics development).
+*   **Choice**: Docusaurus v3.x+ with MDX
+*   **Rationale**: Docusaurus provides a modern, performant, and extensible framework for building static documentation websites. Its support for MDX (Markdown with JSX) allows for embedding interactive components, runnable code examples, and custom UI elements directly within the content, aligning with the "Interactive Format" key differentiator. Automated build and deployment to GitHub Pages are straightforward.
+*   **Alternatives Considered**:
+    *   Sphinx: Popular for Python documentation, but less geared towards interactive web experiences and modern frontend development.
+    *   Jupyter Book: Excellent for integrating Jupyter notebooks, but Docusaurus offers more flexibility for a comprehensive textbook structure and custom styling.
 
-### Documentation Platform: Docusaurus v3.x+
+## Decision: Simulation Environments
 
-*   **Decision**: Docusaurus v3.x+ will be used for developing and deploying the web-based textbook.
-*   **Rationale**:
-    *   **Web-Native & Interactive**: Docusaurus supports MDX, allowing for interactive components, embedded code examples, and multimedia, aligning with the "Interactive Format" key differentiator.
-    *   **Maintainability**: Built on React, it provides a structured approach for scalable documentation, easy versioning, and community-driven development, supporting the "Maintainability" principle.
-    *   **Deployment Excellence**: Designed for static site generation, it integrates seamlessly with GitHub Pages for automated CI/CD and fast loading times, fulfilling "Deployment Excellence" and "Performance Goals".
-*   **Alternatives Considered**: Sphinx (rejected for less native web interactivity and often requiring more custom work for modern web features), GitBook (rejected for potential vendor lock-in and less open-source flexibility).
+*   **Choice**: NVIDIA Isaac Sim, Gazebo, Unity (for high-fidelity rendering), potentially MuJoCo/PyBullet for specific examples.
+*   **Rationale**: The textbook aims to cover practical applications. NVIDIA Isaac Sim offers photorealistic simulation and synthetic data generation, which is crucial for advanced perception and ML training. Gazebo is a widely used open-source robotics simulator, essential for ROS 2 integration. Unity can be leveraged for high-fidelity visualization and human-robot interaction scenarios. Including a range ensures broad applicability and exposure to industry-relevant tools.
+*   **Alternatives Considered**:
+    *   Only Gazebo: Would limit exposure to more advanced features like photorealistic rendering and synthetic data.
+    *   Only Isaac Sim: Commercial tool, might limit accessibility for all students compared to open-source options. A hybrid approach provides the best of both worlds.
 
-### Simulation Environments: Isaac Sim, Gazebo, MuJoCo, or PyBullet
+## Decision: Robotics Framework
 
-*   **Decision**: The textbook will reference and utilize multiple prominent open-source/accessible simulation environments, including Isaac Sim, Gazebo, MuJoCo, or PyBullet, without endorsing a single platform.
-*   **Rationale**:
-    *   **Accessibility & Broad Appeal**: Provides students with options based on their resources and preferences, reinforcing the "Accessible" key differentiator.
-    *   **Industry Relevance**: These simulators are widely used in research and industry, ensuring the practical exercises have real-world applicability.
-    *   **Abstraction**: Encourages understanding of underlying principles rather than platform-specific nuances, aligning with the goal of bridging AI software with physical embodiment generically.
-*   **Alternatives Considered**: Developing a custom simulator (rejected due to significant development overhead and not being a core deliverable), focusing on a single proprietary simulator (rejected to maintain platform-agnostic approach and accessibility).
+*   **Choice**: ROS 2 (Robot Operating System 2), including Nav2 and Isaac ROS components.
+*   **Rationale**: ROS 2 is the industry-standard middleware for robotics development, providing tools and libraries for hardware abstraction, device drivers, inter-process communication, and managing complex robot systems. Its modular architecture and Python client library (`rclpy`) are critical for building sophisticated robot behaviors and integrating with AI agents. Nav2 is essential for path planning for bipedal movement, and Isaac ROS provides hardware-accelerated VSLAM (Visual SLAM) and navigation, directly supporting modules 1 and 3 of the course outline.
+*   **Alternatives Considered**:
+    *   Custom frameworks: Would require significant effort to build and maintain, and would not prepare students for industry standards.
+    *   ROS 1: Older version, ROS 2 offers significant improvements in performance, security, and real-time capabilities.
 
-### Robotics Framework: ROS 2
+## Decision: AI/ML Libraries
 
-*   **Decision**: ROS 2 (Robot Operating System 2) will be the primary robotics framework referenced and integrated into practical examples.
-*   **Rationale**:
-    *   **Industry Standard**: ROS 2 is a de-facto standard in robotics research and development, providing a robust framework for communication, hardware abstraction, and toolchains.
-    *   **Modular & Extensible**: Its modular architecture supports complex robotic systems, aligning with the comprehensive nature of the textbook.
-    *   **Python Integration**: Excellent Python client libraries (rclpy) allow seamless integration with the chosen primary programming language.
-*   **Alternatives Considered**: Avoiding a specific framework (rejected as it would limit practical application and industry relevance), other custom robotics middleware (rejected for lack of broad adoption and community support).
+*   **Choice**: PyTorch or TensorFlow
+*   **Rationale**: These are the leading deep learning frameworks, providing robust tools for building and training neural networks essential for robot perception, control, and reinforcement learning. The textbook can illustrate concepts using either, emphasizing the underlying principles.
+*   **Alternatives Considered**:
+    *   Jax: Powerful for high-performance numerical computing and ML research, but a smaller ecosystem and less mature for production robotics compared to PyTorch/TensorFlow.
 
-### AI/ML Libraries: PyTorch or TensorFlow
+## Decision: LLM/Voice Integration
 
-*   **Decision**: The textbook will integrate concepts and examples using both PyTorch and TensorFlow for machine learning and reinforcement learning algorithms.
-*   **Rationale**:
-    *   **Dual Exposure**: Provides students with exposure to the two most dominant deep learning frameworks, enhancing their versatility.
-    *   **Complementary Strengths**: PyTorch is often favored in research for its flexibility, while TensorFlow is robust for production deployment. Covering both offers a balanced perspective.
-*   **Alternatives Considered**: Focusing on a single framework (rejected as it would limit students' exposure to industry diversity), using lower-level ML libraries (rejected for increased complexity for the target audience).
+*   **Choice**: OpenAI Whisper for voice-to-action, generic LLMs for cognitive planning.
+*   **Rationale**: Integrating voice commands and cognitive planning through LLMs is a key aspect of advanced humanoid robotics (Module 4: VLA). OpenAI Whisper provides state-of-the-art speech-to-text capabilities, enabling robots to understand spoken instructions. Leveraging generic LLMs for cognitive planning allows for translating natural language commands ("Clean the room") into robot action sequences, demonstrating the convergence of AI and robotics.
+*   **Alternatives Considered**:
+    *   Rule-based voice command systems: Too inflexible and limited for natural human-robot interaction.
+    *   Developing custom LLM models: Beyond the scope of an educational textbook; focusing on integration of existing powerful models is more practical for students.
 
-## Development Workflow Decisions
+## Decision: Development Workflow & Code Repository Management
 
-### Code Repository Management: Git & GitHub
+*   **Choice**: Git & GitHub
+*   **Rationale**: Git is the industry-standard version control system, and GitHub is the dominant platform for collaborative software development and hosting open-source projects. This choice aligns with the "Maintainability" and "Deployment Excellence" principles and provides students with essential industry skills.
+*   **Alternatives Considered**:
+    *   Other version control systems (e.g., SVN): Less prevalent in modern software development.
+    *   Other code hosting platforms (e.g., GitLab, Bitbucket): While viable, GitHub offers the largest community and integration ecosystem.
 
-*   **Decision**: All textbook content, code examples, and Docusaurus configuration will be managed in a public GitHub repository using Git.
-*   **Rationale**:
-    *   **Version Control**: Git provides robust version control, allowing for collaborative development, clear history tracking, and easy rollback, supporting the "Maintainability" principle.
-    *   **Open Source Collaboration**: GitHub facilitates open-source contributions, issue tracking, and community engagement.
-    *   **CI/CD Integration**: Seamless integration with GitHub Actions for automated testing and deployment to GitHub Pages.
-*   **Alternatives Considered**: Other version control systems (rejected due to GitHub's industry dominance and integration benefits), private repositories (rejected to promote accessibility and community engagement).
+## Decision: Automated Testing & Deployment
 
-### Automated Testing & Deployment: GitHub Actions
-
-*   **Decision**: GitHub Actions will be used for Continuous Integration (CI) and Continuous Deployment (CD) workflows.
-*   **Rationale**:
-    *   **Automation**: Automates the build, test, and deployment processes, ensuring code examples are always runnable and the documentation site is up-to-date and free of errors.
-    *   **Quality Assurance**: Enforces code standards, runs tests on code examples, and verifies Docusaurus builds, aligning with "Accuracy" and "Deployment Excellence" standards.
-    *   **Efficiency**: Reduces manual effort and potential for human error in the deployment pipeline.
-*   **Alternatives Considered**: Other CI/CD platforms (rejected for tighter integration with GitHub ecosystem).
+*   **Choice**: GitHub Actions for CI/CD
+*   **Rationale**: GitHub Actions provides a robust and integrated solution for automating build, test, and deployment workflows directly within the GitHub repository. This supports continuous integration for code examples and continuous deployment to GitHub Pages for the textbook website, ensuring that content is always up-to-date and functional. This directly addresses the "Deployment Excellence" principle.
+*   **Alternatives Considered**:
+    *   Jenkins: Powerful, but requires setting up and managing a separate server, adding complexity.
+    *   Other cloud CI/CD services: GitHub Actions offers tight integration with the chosen code hosting platform.

@@ -11,24 +11,26 @@ This document outlines the structured contracts for the textbook's content, deta
 
 ## 1. Textbook Structure Contract
 
-*   **Description**: Defines the top-level organization of the entire textbook.
+*   **Description**: Defines the top-level organization of the entire textbook, structured into pedagogical modules.
 *   **Structure**:
     *   `Front Matter`: (e.g., Title Page, Copyright, Dedication, Table of Contents, Preface)
-    *   `Core Chapters`: A sequence of 12-15 `Chapter` entities, logically ordered from fundamentals to advanced topics.
+    *   `Core Modules & Chapters`: A sequence of 4 `Module` entities, each containing multiple `Chapter` entities (12-15 total), logically ordered from fundamentals to advanced topics. This aligns with the `Quarter Overview` in `spec.md`.
         *   **Validation**: Must have at least 12 chapters as per `SC-007`.
     *   `Glossary`: A comprehensive list of defined terms.
     *   `Appendices`: Supplementary materials such as mathematical foundations, setup guides.
     *   `Back Matter`: (e.g., Index, References)
 *   **Integrity Rules**:
-    *   All `Chapter` entities must be uniquely numbered and titled.
+    *   All `Chapter` entities must be uniquely numbered and titled, and clearly associated with a `Module`.
     *   All internal links within the textbook content must be functional (`SC-014`).
     *   `Glossary` terms must be consistently used and defined on first use in chapters.
 
 ## 2. Chapter Structure Contract
 
-*   **Description**: Defines the internal organization of each `Chapter`.
+*   **Description**: Defines the internal organization of each `Chapter`, as part of a `Module` and associated with specific `Week`s.
 *   **Structure**:
     *   `Introduction`: Overview of chapter goals and prerequisites.
+    *   `Module Affiliation`: Explicitly state the pedagogical module this chapter belongs to (e.g., "Module 1: The Robotic Nervous System (ROS 2)").
+    *   `Weekly Focus`: Indicate the week(s) covered by this chapter, aligning with `Course Outline (Weekly Breakdown)` in `spec.md`.
     *   `Learning Objectives`: Explicitly stated learning outcomes.
     *   `Core Content Modules`: An ordered sequence of `Content Module` entities.
         *   **Validation**: Each chapter must contain at least 2-3 technical diagrams (`SC-019`).
@@ -43,18 +45,20 @@ This document outlines the structured contracts for the textbook's content, deta
 
 ## 3. Content Module Contracts (Examples)
 
-*   **Description**: Defines the expected format and content of various types of learning modules.
+*   **Description**: Defines the expected format and content of various types of learning modules, associated with specific `Week`s.
 
 ### 3.1. Text Module
 
 *   **Type**: `Text`
 *   **Content**: Markdown text, explanations, theoretical concepts.
+*   **Week Affiliation**: The week(s) this content module is covered (e.g., "Weeks 1-2") (String).
 *   **Integrity**: Clear, concise, accurate, and jargon-free (`Constitution: Content Quality - Clarity`).
 
 ### 3.2. Code Example Module
 
 *   **Type**: `Code Example`
 *   **Content**: Python code snippet, often with accompanying explanation.
+*   **Week Affiliation**: The week(s) this content module is covered.
 *   **Integrity**: Must be runnable, tested, follow PEP 8, include type hints and docstrings (`Constitution: Code Standards`).
 *   **Placement**: Referenced from `code-examples/` directory.
 
@@ -62,18 +66,21 @@ This document outlines the structured contracts for the textbook's content, deta
 
 *   **Type**: `Diagram/Figure`
 *   **Content**: Path to image file (SVG, optimized PNG/JPG).
+*   **Week Affiliation**: The week(s) this content module is covered.
 *   **Integrity**: Must enhance understanding (`SC-009`), include alt text for accessibility, and be lightweight.
 
 ### 3.4. Exercise/Lab Module
 
 *   **Type**: `Exercise/Lab`
 *   **Content**: Problem description, steps, expected output, solution link.
+*   **Week Affiliation**: The week(s) this content module is covered.
 *   **Integrity**: Hands-on, practical application, clear instructions (`SC-010`).
 
 ### 3.5. Case Study Module
 
 *   **Type**: `Case Study`
 *   **Content**: Description of real-world robotics project, lessons learned.
+*   **Week Affiliation**: The week(s) this content module is covered.
 *   **Integrity**: Industry-relevant, concise.
 
 ## 4. Inter-Module Communication (Conceptual)
@@ -84,7 +91,7 @@ This document outlines the structured contracts for the textbook's content, deta
     *   `Exercise/Lab` modules rely on `Code Example`s and `Text Module`s.
     *   `Diagram/Figure` modules support `Text Module`s.
     *   `Glossary` terms can be linked from any `Text Module`.
-*   **Flow**: Pedagogical progression ensures foundational concepts are covered before advanced topics are introduced (`Constitution: Difficulty Curve`).
+    *   Progression across `Modules` and `Weeks` ensures foundational concepts are covered before advanced topics are introduced (`Constitution: Difficulty Curve`).
 
 ## 5. Metadata Contract (Docusaurus Frontmatter)
 
@@ -97,4 +104,6 @@ This document outlines the structured contracts for the textbook's content, deta
     *   `slug`: (String, optional, for custom URL paths)
     *   `authors`: (List of Strings, optional)
     *   `tags`: (List of Strings, optional)
+    *   `module`: (String, optional, e.g., "Module 1: ROS 2")
+    *   `week`: (String, optional, e.g., "Weeks 1-2")
 *   **Integrity**: Must include frontmatter in every document (`Constitution: Documentation Structure - Metadata`).

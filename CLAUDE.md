@@ -208,3 +208,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Python 3.10+ (001-humanoid-robotics-textbook)
+- Files for data I/O in code examples, local storage for web-based interactive elements (if applicable) (001-humanoid-robotics-textbook)
+
+## Recent Changes
+- 001-humanoid-robotics-textbook: Added Python 3.10+

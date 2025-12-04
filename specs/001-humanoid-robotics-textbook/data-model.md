@@ -25,11 +25,12 @@
 *   **Fields**:
     *   `chapter_number`: Unique identifier for the chapter (Integer)
     *   `title`: Title of the chapter (String)
+    *   `module_affiliation`: The pedagogical module this chapter belongs to (e.g., "Module 1: ROS 2") (String)
     *   `learning_objectives`: Key outcomes students should achieve (List of Strings)
     *   `content_modules`: Ordered list of `Content Module` entities within the chapter (One-to-Many relationship)
     *   `quizzes`: References to end-of-chapter quizzes (List of Strings)
     *   `projects`: References to end-of-chapter projects (List of Strings)
-*   **Relationships**: Belongs to a `Textbook`. Contains `Content Module`s.
+*   **Relationships**: Belongs to a `Textbook`. Contains `Content Module`s. Organized within a specific `Module`.
 
 ### 3. Content Module
 
@@ -39,13 +40,14 @@
     *   `title`: Title or brief description of the module (String, optional)
     *   `content`: The actual text, code, image path, or link for the module (String/URL)
     *   `order`: Display order within its parent `Chapter` (Integer)
+    *   `week_affiliation`: The week(s) this content module is covered (e.g., "Weeks 1-2") (String)
     *   `references`: Citations or links to external sources (List of Strings/URLs)
 *   **Relationships**: Belongs to a `Chapter` or `Textbook` (as an appendix).
 
 ### 4. Student
 
 *   **Description**: The target reader of the textbook.
-*   **Fields**:
+*   **Fields` `:
     *   `background_ai`: Boolean, assumed basic AI knowledge.
     *   `background_programming`: Boolean, assumed Python proficiency.
     *   `background_linear_algebra`: Boolean, assumed basic linear algebra.
@@ -99,8 +101,8 @@
 
 ## Relationships Summary
 
-*   `Textbook` contains `Chapter`s.
-*   `Chapter`s contain `Content Module`s.
+*   `Textbook` contains `Chapter`s, which are organized into pedagogical `Module`s.
+*   `Chapter`s contain `Content Module`s, which are associated with specific `Week`s.
 *   `Content Module`s can be `Code Example`s, `Diagram/Figure`s, `Exercise/Lab`s, `Case Study`s, etc.
 *   `Humanoid Robot` generates `Sensor Data` and executes `Control Algorithm`s and `Motion Plan`s.
 *   `Simulation Environment` hosts `Humanoid Robot`s and provides `Sensor Data`.
