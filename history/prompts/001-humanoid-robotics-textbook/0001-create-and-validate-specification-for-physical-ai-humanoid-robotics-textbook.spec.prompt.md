@@ -1,0 +1,266 @@
+---
+id: 0001
+title: Create and validate specification for Physical AI & Humanoid Robotics Textbook
+stage: spec
+date: 2025-12-04
+surface: agent
+model: claude-sonnet-4-5-20250929
+feature: 001-humanoid-robotics-textbook
+branch: 001-humanoid-robotics-textbook
+user: User
+command: /sp.specify
+labels: ["specification", "feature-creation"]
+links:
+  spec: specs/001-humanoid-robotics-textbook/spec.md
+  ticket: null
+  adr: null
+  pr: null
+files:
+  - specs/001-humanoid-robotics-textbook/spec.md
+  - specs/001-humanoid-robotics-textbook/checklists/requirements.md
+tests: []
+---
+
+## Prompt
+
+```text
+# /sp.specify
+
+## Project: Physical AI & Humanoid Robotics Textbook
+
+### Core Description
+A comprehensive educational textbook teaching Physical AI and Humanoid Robotics, focusing on bridging the gap between AI software and physical embodiment. The textbook prepares students to control humanoid robots in both simulated and real-world environments.
+
+### Target Audience
+- **Primary**: Computer science and engineering students with foundational AI knowledge
+- **Secondary**: Robotics enthusiasts and professionals transitioning to Physical AI
+- **Prerequisites**: Basic understanding of AI concepts, programming (Python), and linear algebra
+- **Technical Level**: Intermediate to advanced (assumes AI agent knowledge)
+
+### Focus Areas
+1. **Embodied Intelligence**: How AI systems interact with and learn from the physical world
+2. **Humanoid Robot Control**: Practical techniques for controlling bipedal robots
+3. **Simulation-to-Reality Transfer**: Moving from virtual environments to physical deployment
+4. **Sensor Integration**: Processing real-world data (vision, touch, proprioception)
+5. **Motion Planning & Control**: Kinematics, dynamics, and balance for humanoid systems
+6. **Human-Robot Collaboration**: Designing robots that work alongside people safely
+
+### Success Criteria
+
+**Learning Outcomes:**
+- ✅ Students can explain the fundamental differences between digital AI and embodied AI
+- ✅ Students can implement basic humanoid robot control algorithms in simulation
+- ✅ Students understand sensor fusion and perception for physical robots
+- ✅ Students can design and execute motion planning for bipedal locomotion
+- ✅ Students can transfer simulated behaviors to real hardware
+- ✅ Students understand safety considerations for human-robot interaction
+
+**Content Quality:**
+- ✅ Minimum 12 comprehensive chapters with clear learning progression
+- ✅ 50+ working code examples with detailed explanations
+- ✅ 30+ diagrams, illustrations, and technical figures
+- ✅ 20+ hands-on exercises/labs with solutions
+- ✅ Case studies from real-world humanoid robotics projects
+- ✅ All code tested in simulation environments (Isaac Sim, Gazebo, or similar)
+
+**Technical Standards:**
+- ✅ All mathematical concepts explained with intuitive explanations + formal notation
+- ✅ Code examples in Python with ROS 2 and PyTorch/TensorFlow
+- ✅ References to current industry standards and frameworks
+- ✅ Compatible with common simulation platforms
+- ✅ Includes troubleshooting guides and common pitfalls
+
+### Constraints
+
+**Content Constraints:**
+- **Word Count**: 60,000-90,000 words (typical textbook length)
+- **Chapter Length**: 4,000-7,000 words per chapter
+- **Code-to-Text Ratio**: Minimum 30% practical code and exercises
+- **Figures**: At least 2-3 technical diagrams per chapter
+- **References**: Minimum 100 academic and industry sources
+
+**Technical Constraints:**
+- **Platform**: Docusaurus for web deployment
+- **Format**: MDX (Markdown + JSX) for all content
+- **Code Language**: Python 3.10+ as primary language
+- **Simulation Tools**: Focus on open-source/accessible platforms
+- **Hardware References**: Platform-agnostic where possible, specific examples when needed
+
+**Pedagogical Constraints:**
+- **Structure**: Theory → Simulation → Practice → Real-world transfer
+- **Difficulty Curve**: Gradual progression from basics to advanced topics
+- **Self-Study**: Each chapter must be comprehensible without instructor
+- **Hands-On**: Every 2-3 pages should include interactive elements
+- **Assessments**: End-of-chapter quizzes and projects
+
+**Timeline Constraints:**
+- **Development Phase**: 8-12 weeks for complete first draft
+- **Review Phase**: 2-3 weeks for technical review and testing
+- **Deployment**: 1 week for GitHub Pages setup and finalization
+
+### What We're Building
+
+**Essential Components:**
+
+1. **Foundation Chapters (Chapters 1-3)**
+   - Introduction to Physical AI and embodied intelligence
+   - Overview of humanoid robotics hardware and architectures
+   - Setting up development environment (simulators, frameworks)
+
+2. **Perception & Sensing (Chapters 4-6)**
+   - Computer vision for robotics
+   - Sensor fusion and state estimation
+   - Proprioception and tactile sensing
+
+3. **Control & Motion (Chapters 7-9)**
+   - Kinematics and dynamics of humanoid robots
+   - Balance and locomotion control
+   - Manipulation and grasping
+
+4. **Intelligence & Learning (Chapters 10-12)**
+   - Reinforcement learning for robot control
+   - Imitation learning and behavior cloning
+   - Sim-to-real transfer techniques
+
+5. **Integration & Deployment (Chapters 13-15)**
+   - Human-robot interaction and safety
+   - Real-world deployment considerations
+   - Future directions and emerging technologies
+
+**Supporting Materials:**
+- Comprehensive glossary of terms
+- Appendices with mathematical foundations
+- Setup guides for simulation environments
+- Resource library with datasets and pre-trained models
+- Video tutorials and demonstrations (embedded links)
+
+### What We're NOT Building
+
+**Explicitly Out of Scope:**
+- ❌ **Detailed Hardware Design**: Not a mechanical engineering textbook; focus on control software
+- ❌ **Vendor-Specific Training**: Avoid bias toward specific commercial platforms (Boston Dynamics, Tesla Bot, etc.)
+- ❌ **AI Fundamentals Course**: Assumes students already understand neural networks, reinforcement learning basics
+- ❌ **Comprehensive Electronics Guide**: Not covering circuit design or PCB layout
+- ❌ **Manufacturing Processes**: Not teaching how to build robot parts from scratch
+- ❌ **Business/Ethics Deep-Dive**: Brief coverage of safety/ethics, but not the primary focus
+- ❌ **Non-Humanoid Robotics**: Focus specifically on bipedal humanoid forms, not industrial arms, drones, or wheeled robots
+- ❌ **Low-Level Firmware**: Not teaching microcontroller programming or RTOS development
+
+**Boundaries:**
+- Hardware: Reference existing platforms, don't design new ones
+- Simulation: Use established tools, don't build custom simulators
+- Mathematics: Review key concepts, link to external resources for deep dives
+- Programming: Assume Python proficiency, provide refreshers not full tutorials
+
+### Key Differentiators
+
+**What Makes This Textbook Unique:**
+1. **Bridge Focus**: Explicitly connects AI agent knowledge to physical embodiment
+2. **Practical-First**: Simulation labs in every chapter, not just theory
+3. **Modern Stack**: Uses latest frameworks (ROS 2, modern RL libraries)
+4. **Accessible**: Open-source tools and freely available simulators
+5. **Industry-Relevant**: Case studies from current humanoid robotics projects
+6. **Web-Native**: Interactive Docusaurus format with runnable code examples
+
+### Technical Stack
+
+**Required Technologies:**
+- **Simulation**: Isaac Sim, Gazebo, MuJoCo, or PyBullet
+- **Robotics Framework**: ROS 2 (Robot Operating System)
+- **AI/ML**: PyTorch or TensorFlow for learning algorithms
+- **Control**: NumPy, SciPy for mathematical operations
+- **Visualization**: Matplotlib, Plotly for data visualization
+- **Documentation**: Docusaurus for web deployment
+
+**Optional/Reference Technologies:**
+- Specific humanoid platforms (Unitree, Agility Robotics, etc.)
+- Cloud robotics platforms
+- Custom simulation environments
+
+### Success Metrics
+
+**Quantitative:**
+- [ ] 12-15 complete chapters published
+- [ ] 50+ tested code examples
+- [ ] 30+ technical diagrams
+- [ ] 20+ hands-on labs with solutions
+- [ ] 100+ citations and references
+- [ ] Zero broken code examples
+- [ ] Lighthouse score 90+ on deployed site
+
+**Qualitative:**
+- [ ] Content flows logically from fundamentals to advanced
+- [ ] Students without robotics background can follow along
+- [ ] All theoretical concepts paired with practical examples
+- [ ] Troubleshooting sections address common issues
+- [ ] Accessible tone without sacrificing technical accuracy
+- [ ] Engaging writing that motivates continued learning
+
+### Style Guide
+
+**Voice & Tone:**
+- Direct, instructional second-person ("you will learn...")
+- Enthusiastic but professional
+- Encouraging for complex topics
+- Assumes intelligence, not prior robotics experience
+
+**Technical Writing:**
+- Define all domain-specific terms on first use
+- Use analogies to bridge abstract concepts
+- Progress from intuition → formalization → implementation
+- Include "Why This Matters" context for each major topic
+
+**Code Style:**
+- Clear variable names over brevity
+- Extensive inline comments
+- Type hints in Python code
+- Docstrings for all functions
+- Follow PEP 8 conventions
+
+### Deliverables
+
+**Primary:**
+1. Complete Docusaurus-based textbook deployed to GitHub Pages
+2. GitHub repository with all source code and examples
+3. Setup guide for development environment
+4. Instructor resources (if applicable)
+
+**Secondary:**
+1. Example datasets and pre-trained models
+2. Video demonstrations for complex concepts
+3. Companion Jupyter notebooks for experimentation
+4. Links to community resources and forums
+
+---
+
+**This specification should be paired with the constitution (/sp.constitution) to guide all development decisions throughout the textbook creation process.**
+```
+
+## Response snapshot
+
+```text
+The feature specification for "Physical AI & Humanoid Robotics Textbook" has been successfully created and validated.
+
+**Branch Name**: `001-humanoid-robotics-textbook`
+**Specification File**: `specs/001-humanoid-robotics-textbook/spec.md`
+**Quality Checklist**: `specs/001-humanoid-robotics-textbook/checklists/requirements.md`
+
+All required sections are completed, and the specification is now technology-agnostic and focused on user value. It is ready for the next phase, which could involve `/sp.clarify` (if further ambiguities were detected, but none are currently) or `/sp.plan` to begin architectural planning.
+```
+
+## Outcome
+
+- ✅ Impact: Specification created and validated successfully, including glossary clarification.
+- 🧪 Tests: No tests run.
+- 📁 Files:
+  - specs/001-humanoid-robotics-textbook/spec.md
+  - specs/001-humanoid-robotics-textbook/checklists/requirements.md
+- 🔁 Next prompts: /sp.plan to begin architectural planning, after the successful completion of /sp.clarify.
+- 🧠 Reflection: Successfully navigated complex multi-line string passing for shell commands and file update dependencies. Clarified glossary definition with user, ensuring spec completeness. Finalized spec to be technology-agnostic.
+
+## Evaluation notes (flywheel)
+
+- Failure modes observed: Bash 'unexpected EOF' when passing multi-line JSON directly, 'File not read' error before writing, 'String to replace not found' during multiple `Edit` attempts, and 'Feature directory not found' for `create-phr.sh`.
+- Graders run and results (PASS/FAIL): No graders run.
+- Prompt variant (if applicable): N/A
+- Next experiment (smallest change to try): N/A
