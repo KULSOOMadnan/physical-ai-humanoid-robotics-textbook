@@ -1,15 +1,13 @@
-/* /**
+/**
  * Global Docusaurus theme customization
- * Clean, modern, light/dark friendly
+ * Neon Violet – Clean & Correct
  */
 
-
-
 /* =======================
-   LIGHT MODE – NEON VIOLET
+   LIGHT MODE
 ======================= */
 :root {
-  /* Brand color */
+  /* Brand */
   --ifm-color-primary: #8b5cf6;
   --ifm-color-primary-dark: #7c3aed;
   --ifm-color-primary-darker: #6d28d9;
@@ -19,8 +17,9 @@
   --ifm-color-primary-lightest: #ddd6fe;
 
   /* Typography */
-  --ifm-font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --ifm-font-size-base: 18px;          /* ⬅ Increased */
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --ifm-font-size-base: 18px;
   --ifm-line-height-base: 1.8;
   --ifm-heading-font-weight: 600;
 
@@ -28,9 +27,20 @@
   --ifm-background-color: #ffffff;
   --ifm-background-surface-color: #f8fafc;
 
+  /* Footer colors */
+  --footer-background-surface-color: #121221;
+  --footer-font-color-base: #cfcfe3;
+  --footer-heading-color: #f7f7f7;
+
   /* Text */
   --ifm-font-color-base: #1e1e2e;
   --ifm-heading-color: #0f172a;
+
+  /* Footer */
+  --ifm-footer-background-color: var(--footer-background-surface-color);
+  --ifm-footer-color: var(--footer-font-color-base);
+  --ifm-footer-link-color: var(--footer-font-color-base);
+  --ifm-footer-title-color: var(--footer-heading-color);
 
   /* Code */
   --ifm-code-font-size: 95%;
@@ -38,9 +48,9 @@
 }
 
 /* =======================
-   DARK MODE – GRAPHITE
+   DARK MODE
 ======================= */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #a78bfa;
   --ifm-color-primary-dark: #8b5cf6;
   --ifm-color-primary-darker: #7c3aed;
@@ -55,54 +65,77 @@
   --ifm-font-color-base: #e5e7eb;
   --ifm-heading-color: #f9fafb;
 
-  --ifm-code-font-size: 95%;
+  /* Footer */
+  --ifm-footer-background-color: #020617;
+  --ifm-footer-color: #e5e7eb;
+  --ifm-footer-link-color: #c4b5fd;
+  --ifm-footer-title-color: #f9fafb;
+
   --docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.25);
 }
 
 /* =======================
-   GLOBAL TEXT IMPROVEMENTS
+   GLOBAL TEXT
 ======================= */
 html {
   font-family: var(--ifm-font-family-base);
 }
 
 .markdown {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 1.15rem;
+  line-height: 1.9;
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1 {
+  font-size: 2.6rem;
+}
+h2 {
+  font-size: 2.1rem;
+}
+h3 {
+  font-size: 1.7rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.35;
 }
 
 /* =======================
    NAVBAR
 ======================= */
+/* Navbar adjustments */
 .navbar {
+  min-height: 100px;        /* Tall enough for bigger logo */
+  padding: 0 2rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+  display: flex;            /* Flex container */
+  align-items: center;      /* Vertically center content */
+  justify-content: space-between;
+  z-index: 1000;
 }
 
-/* Better reading experience */
-.markdown {
-  font-size: 1.15rem;
-  line-height: 1.9;
+/* Logo adjustments */
+.navbar__logo {
+  display: flex;            /* Make logo container flex too */
+  align-items: center;      /* Vertically center the logo */
 }
 
-/* Headings feel stronger */
-h1 { font-size: 2.6rem; }
-h2 { font-size: 2.1rem; }
-h3 { font-size: 1.7rem; }
-
-@media (max-width: 768px) {
-  :root {
-    --ifm-font-size-base: 16px;
-  }
-
-  .markdown {
-    font-size: 1.05rem;
-  }
+.navbar__logo img {
+  height: 120px !important;  /* Bigger logo */
+  width: auto !important;   /* Keep aspect ratio */
+  max-width: 250px;
 }
+
+/* Optional hover zoom */
+.navbar__logo img:hover {
+  transform: scale(1.05);
+}
+
 
 /* =======================
    SIDEBAR
@@ -120,7 +153,7 @@ h3 { font-size: 1.7rem; }
 }
 
 /* =======================
-   CODE BLOCKS
+   CODE
 ======================= */
 pre {
   border-radius: 12px;
@@ -142,11 +175,25 @@ code {
 }
 
 /* =======================
-   FOOTER
+   FOOTER (NOW FIXED)
 ======================= */
 .footer {
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-footer-color);
   padding: 2.5rem 0;
   border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.footer__title {
+  color: var(--ifm-footer-title-color);
+}
+
+.footer__link-item {
+  color: var(--ifm-footer-link-color);
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary);
 }
 
 /* =======================
@@ -158,6 +205,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: var(--ifm-color-primary-dark);
 }
 
 /* =======================
@@ -168,7 +216,8 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   padding: 0.75rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
@@ -178,6 +227,43 @@ th, td {
 ======================= */
 @media (max-width: 768px) {
   :root {
-    --ifm-font-size-base: 15px;
+    --ifm-font-size-base: 16px;
   }
+
+  .markdown {
+    font-size: 1.05rem;
+  }
+}
+
+/* Sidebar active item glow */
+.menu__link--active {
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.18),
+    rgba(139, 92, 246, 0.05)
+  );
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary);
+}
+[data-theme="dark"] .menu__link--active {
+  box-shadow: inset 3px 0 0 var(--ifm-color-primary),
+    0 0 12px rgba(167, 139, 250, 0.35);
+}
+
+
+pre {
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(2, 6, 23, 1)
+  );
+  color: #e5e7eb;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+}
+
+[data-theme='light'] pre {
+  background: #0f172a;
+  color: #f8fafc;
 }

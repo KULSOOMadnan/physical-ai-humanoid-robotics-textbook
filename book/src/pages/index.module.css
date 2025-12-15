@@ -1,68 +1,130 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
+/* Hero Section */
 .heroBanner {
-  padding: 6rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    140deg,
+    #9ba5bd 0%,
+    #51638e 35%,
+    #193474 60%,
+    #070f2e 100%
+  );
   color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.heroContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroText .hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.heroText .hero__subtitle {
+  font-size: 1.5rem;
   margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 3rem 1rem;
-  }
+.heroImage {
+  flex: 1;
+  text-align: right;
 }
 
+.heroImage img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.heroImage img:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
+/* Book Introduction Section */
 .bookIntro {
-  background-color: #f8f9fa;
-  padding: 3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 4rem 2rem;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  border-radius: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  text-align: left;
+}
+
+.bookIntro .bookText {
+  flex: 1;
+}
+
+.bookIntro h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-heading-color);
 }
 
 .bookIntro .text--large {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   line-height: 1.6;
   max-width: 800px;
   margin: 0 auto 2rem;
-  color: #333;
+  color: var(--ifm-font-color-base);
 }
 
+/* Feature Cards */
 .feature-card {
   padding: 1.5rem;
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
 }
 
 .feature-icon {
   font-size: 2.5rem;
-  display: block;
   margin-bottom: 1rem;
 }
 
+/* Modules Cards */
 .card {
   height: 100%;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card__body {
@@ -73,16 +135,47 @@
   margin-top: auto;
 }
 
+/* Responsive for smaller screens */
+@media screen and (max-width: 992px) {
+  .heroContent,
+  .bookIntro {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .heroImage,
+  .bookIntro img {
+    text-align: center;
+    margin-top: 2rem;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .heroBanner {
     padding: 4rem 1rem;
   }
 
-  .bookIntro {
-    padding: 2rem 1rem;
+  .heroText .hero__title {
+    font-size: 2.2rem;
   }
 
-  .col--6 {
-    margin-bottom: 1.5rem;
+  .heroText .hero__subtitle {
+    font-size: 1.2rem;
+  }
+
+  .bookIntro {
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .bookIntro h2 {
+    font-size: 2rem;
+  }
+
+  .bookIntro .text--large {
+    font-size: 1rem;
   }
 }

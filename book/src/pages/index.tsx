@@ -4,24 +4,28 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-
+import book_cover from '@site/static/img/book-cover.png'; 
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Start Reading - 15min ⏱️
-          </Link>
+      <div className={styles.heroContent}>
+        {/* Left: Text */}
+        <div className={styles.heroText}>
+          <Heading as="h1" className="hero__title">{siteConfig.title}</Heading>
+          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <div className={styles.buttons}>
+            <Link className="button button--secondary button--lg" to="/docs/intro">
+              Start Reading  
+            </Link>
+          </div>
+        </div>
+
+        {/* Right: Hero Image */}
+        <div className={styles.heroImage}>
+          <img src={book_cover} alt="Book Cover" />
         </div>
       </div>
     </header>
@@ -41,9 +45,7 @@ const ModuleList: ModuleItem[] = [
     id: '1',
     title: 'Module 1: The Robotic Nervous System (ROS 2)',
     description: (
-      <>
-        Explore the fundamentals of Robot Operating System 2 (ROS 2), the backbone of modern robotics development. Learn about ROS 2 architecture, nodes, topics, services, and actions. Understand how to set up your development environment and work with the core tools that enable robot communication and coordination.
-      </>
+      <>Explore ROS 2 fundamentals: architecture, nodes, topics, services, actions, and communication setup.</>
     ),
     color: 'primary',
     icon: '🧠',
@@ -52,9 +54,7 @@ const ModuleList: ModuleItem[] = [
     id: '2',
     title: 'Module 2: The Digital Twin (Gazebo & Unity)',
     description: (
-      <>
-        Dive into simulation environments that serve as digital twins for your robots. Master Gazebo and Unity for creating realistic virtual environments, testing algorithms safely, and developing sim-to-real transfer techniques. Learn about physics simulation, sensor modeling, and virtual testing methodologies.
-      </>
+      <>Learn to simulate robots with Gazebo & Unity, including physics, sensors, and sim-to-real transfer.</>
     ),
     color: 'secondary',
     icon: '🔄',
@@ -63,9 +63,7 @@ const ModuleList: ModuleItem[] = [
     id: '3',
     title: 'Module 3: The AI-Robot Brain (NVIDIA Isaac™)',
     description: (
-      <>
-        Understand the AI components that make robots intelligent. Learn computer vision techniques, sensor fusion, proprioception, motion planning, and manipulation strategies. Explore NVIDIA Isaac Sim for AI training and reinforcement learning approaches for robot control.
-      </>
+      <>Dive into AI for robotics: computer vision, sensor fusion, motion planning, manipulation, and reinforcement learning.</>
     ),
     color: 'success',
     icon: '🤖',
@@ -74,9 +72,7 @@ const ModuleList: ModuleItem[] = [
     id: '4',
     title: 'Module 4: Vision-Language-Action (VLA)',
     description: (
-      <>
-        Discover the cutting-edge integration of vision, language, and action systems. Learn how robots can understand natural language commands, perceive their environment, and execute complex tasks. Explore human-robot interaction, safety considerations, and the capstone project integrating all concepts.
-      </>
+      <>Integrate vision, language, and action; learn natural language commands, perception, HRI, and capstone project.</>
     ),
     color: 'info',
     icon: '💬',
@@ -115,9 +111,7 @@ function Module({id, title, description, color, icon}: ModuleItem) {
           <p>{description}</p>
         </div>
         <div className="card__footer">
-          <Link
-            className={clsx('button', `button--${color}`)}
-            to={modulePath}>
+          <Link className={clsx('button', `button--${color}`)} to={modulePath}>
             Explore Module
           </Link>
         </div>
@@ -130,36 +124,35 @@ function BookIntroduction() {
   return (
     <section className={clsx(styles.bookIntro, 'margin-vert--lg')}>
       <div className="container">
-        <div className="row">
-          <div className="col col--12 text--center">
-            <Heading as="h2" className="text--center margin-bottom--lg">
-              Welcome to Physical AI & Humanoid Robotics
-            </Heading>
+        <div className="row" style={{ gap: '2rem', textAlign: 'center' }}>
+          <div className="col col--12">
+            <Heading as="h2">Welcome to Physical AI & Humanoid Robotics</Heading>
             <p className="text--large">
-              This comprehensive textbook bridges the gap between artificial intelligence and physical embodiment,
-              exploring how humanoid robots can perceive, reason, and act in the real world.
-              Through four carefully structured modules, you'll journey from foundational concepts to
-              cutting-edge applications in embodied intelligence.
+              This comprehensive textbook bridges the gap between artificial intelligence
+              and physical embodiment, exploring how humanoid robots can perceive, reason,
+              and act in the real world. Through four carefully structured modules,
+              you'll journey from foundational concepts to cutting-edge applications
+              in embodied intelligence.
             </p>
           </div>
         </div>
 
         <div className="row margin-vert--lg">
-          <div className="col col--4 text--center">
+          <div className="col col--4">
             <div className="feature-card">
               <span className="feature-icon">🔬</span>
               <h3>The Science of Embodied AI</h3>
               <p>Understand how intelligence emerges through interaction with the physical world</p>
             </div>
           </div>
-          <div className="col col--4 text--center">
+          <div className="col col--4">
             <div className="feature-card">
               <span className="feature-icon">🦾</span>
               <h3>Humanoid Design Principles</h3>
               <p>Learn the engineering behind robots designed for human environments</p>
             </div>
           </div>
-          <div className="col col--4 text--center">
+          <div className="col col--4">
             <div className="feature-card">
               <span className="feature-icon">🚀</span>
               <h3>Real-World Applications</h3>
@@ -172,12 +165,13 @@ function BookIntroduction() {
   );
 }
 
+
 export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
       title={`Physical AI & Humanoid Robotics Textbook`}
-      description="A comprehensive textbook on Physical AI and Humanoid Robotics - bridging the gap between artificial intelligence and embodied systems">
+      description="A comprehensive textbook on Physical AI and Humanoid Robotics - bridging the gap between AI and embodied systems">
       <HomepageHeader />
       <main>
         <BookIntroduction />
