@@ -1,0 +1,183 @@
+/* /**
+ * Global Docusaurus theme customization
+ * Clean, modern, light/dark friendly
+ */
+
+
+
+/* =======================
+   LIGHT MODE – NEON VIOLET
+======================= */
+:root {
+  /* Brand color */
+  --ifm-color-primary: #8b5cf6;
+  --ifm-color-primary-dark: #7c3aed;
+  --ifm-color-primary-darker: #6d28d9;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #a78bfa;
+  --ifm-color-primary-lighter: #c4b5fd;
+  --ifm-color-primary-lightest: #ddd6fe;
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-size-base: 18px;          /* ⬅ Increased */
+  --ifm-line-height-base: 1.8;
+  --ifm-heading-font-weight: 600;
+
+  /* Surfaces */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f8fafc;
+
+  /* Text */
+  --ifm-font-color-base: #1e1e2e;
+  --ifm-heading-color: #0f172a;
+
+  /* Code */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(139, 92, 246, 0.15);
+}
+
+/* =======================
+   DARK MODE – GRAPHITE
+======================= */
+[data-theme='dark'] {
+  --ifm-color-primary: #a78bfa;
+  --ifm-color-primary-dark: #8b5cf6;
+  --ifm-color-primary-darker: #7c3aed;
+  --ifm-color-primary-darkest: #6d28d9;
+  --ifm-color-primary-light: #c4b5fd;
+  --ifm-color-primary-lighter: #ddd6fe;
+  --ifm-color-primary-lightest: #ede9fe;
+
+  --ifm-background-color: #0b0d17;
+  --ifm-background-surface-color: #111827;
+
+  --ifm-font-color-base: #e5e7eb;
+  --ifm-heading-color: #f9fafb;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.25);
+}
+
+/* =======================
+   GLOBAL TEXT IMPROVEMENTS
+======================= */
+html {
+  font-family: var(--ifm-font-family-base);
+}
+
+.markdown {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.35;
+}
+
+/* =======================
+   NAVBAR
+======================= */
+.navbar {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Better reading experience */
+.markdown {
+  font-size: 1.15rem;
+  line-height: 1.9;
+}
+
+/* Headings feel stronger */
+h1 { font-size: 2.6rem; }
+h2 { font-size: 2.1rem; }
+h3 { font-size: 1.7rem; }
+
+@media (max-width: 768px) {
+  :root {
+    --ifm-font-size-base: 16px;
+  }
+
+  .markdown {
+    font-size: 1.05rem;
+  }
+}
+
+/* =======================
+   SIDEBAR
+======================= */
+.menu {
+  background-color: var(--ifm-background-surface-color);
+}
+
+.menu__link {
+  border-radius: 6px;
+}
+
+.menu__link--active {
+  font-weight: 600;
+}
+
+/* =======================
+   CODE BLOCKS
+======================= */
+pre {
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+code {
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+}
+
+/* =======================
+   CARDS
+======================= */
+.card {
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* =======================
+   FOOTER
+======================= */
+.footer {
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* =======================
+   LINKS
+======================= */
+a {
+  text-decoration-thickness: 1.5px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =======================
+   TABLES
+======================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+  :root {
+    --ifm-font-size-base: 15px;
+  }
+}
