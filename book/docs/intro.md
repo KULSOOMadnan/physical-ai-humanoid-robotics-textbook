@@ -65,7 +65,7 @@ Discover the cutting-edge integration of vision, language, and action systems. L
 - Safety Considerations
 - Capstone Project: Autonomous Humanoid
 
-[Start Module 4](./module4-vla/chapter12/)
+[Start Module 4](./module4-vla/chapter15/)
 
 ## Learning Objectives
 

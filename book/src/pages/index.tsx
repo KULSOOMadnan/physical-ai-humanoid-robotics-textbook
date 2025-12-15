@@ -92,7 +92,7 @@ function Module({id, title, description, color, icon}: ModuleItem) {
       modulePath = '/docs/module3-nvidiaisaac/chapter10/';
       break;
     case '4':
-      modulePath = '/docs/module4-vla/chapter12/';
+      modulePath = '/docs/module4-vla/chapter15/';
       break;
     default:
       modulePath = '/docs/intro';
