@@ -45,6 +45,8 @@
   /* Code */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(139, 92, 246, 0.15);
+
+  --ifm-navbar-height: 100px; /* Increased navbar height */
 }
 
 /* =======================
@@ -108,26 +110,24 @@ h6 {
 /* =======================
    NAVBAR
 ======================= */
-/* Navbar adjustments */
 .navbar {
-  min-height: 100px;        /* Tall enough for bigger logo */
+  min-height: var(--ifm-navbar-height);
   padding: 0 2rem;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
-  display: flex;            /* Flex container */
-  align-items: center;      /* Vertically center content */
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   z-index: 1000;
 }
 
-/* Logo adjustments */
 .navbar__logo {
-  display: flex;            /* Make logo container flex too */
-  align-items: center;      /* Vertically center the logo */
+  display: flex;
+  align-items: center;
 }
 
 .navbar__logo img {
-  height: 120px !important;  /* Bigger logo */
-  width: auto !important;   /* Keep aspect ratio */
+  height: 130px !important;
+  width: auto !important;
   max-width: 250px;
 }
 
@@ -142,7 +142,13 @@ h6 {
 ======================= */
 .menu {
   background-color: var(--ifm-background-surface-color);
+  position: sticky;
+  top: 0;
+  
+
+
 }
+
 
 .menu__link {
   border-radius: 6px;
