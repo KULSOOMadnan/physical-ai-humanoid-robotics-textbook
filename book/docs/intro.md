@@ -1,7 +1,7 @@
 ---
 id: intro
 title: Introduction
-sidebar_label: Introduction
+sidebar_label: Introduction Of Physical AI & Humanoid Robotics
 sidebar_position: 1
 ---
 
