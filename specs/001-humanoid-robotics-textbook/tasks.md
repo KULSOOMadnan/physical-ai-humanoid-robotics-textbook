@@ -30,12 +30,12 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 
 **Assessment 1 Alignment**: Students must be able to develop and explain ROS 2 nodes, topics, and services, and demonstrate message flow between perception, planning, and actuation.
 
-- [ ] T008 [M1] Draft Chapter 1: Introduction to Physical AI and Embodied Intelligence in `book/chapters/chapter01/index.mdx`
-- [ ] T009 [M1] Draft Chapter 2: ROS 2 Architecture and Core Concepts in `book/chapters/chapter02/index.mdx`
-- [ ] T010 [M1] Draft Chapter 3: Nodes, Topics, Services, and Actions in `book/chapters/chapter03/index.mdx`
-- [ ] T011 [M1] Draft Chapter 4: Building ROS 2 Packages with Python using rclpy in `book/chapters/chapter04/index.mdx`
-- [ ] T012 [M1] Draft Chapter 5: URDF for Humanoid Robot Modeling in `book/chapters/chapter05/index.mdx`
-- [ ] T013 [M1] Create end-of-chapter exercises for ROS 2 concepts in `book/chapters/chapter02/exercises.mdx`
+- [X] T008 [M1] Draft Chapter 1: Introduction to Physical AI and Embodied Intelligence in `book/docs/module1-ros2/chapter01/index.md`
+- [ ] T009 [M1] Draft Chapter 2: ROS 2 Architecture and Core Concepts in `book/docs/module1-ros2/chapter02/index.md`
+- [ ] T010 [M1] Draft Chapter 3: Nodes, Topics, Services, and Actions in `book/docs/module1-ros2/chapter03/index.md`
+- [ ] T011 [M1] Draft Chapter 4: Building ROS 2 Packages with Python using rclpy in `book/docs/module1-ros2/chapter04/index.md`
+- [ ] T012 [M1] Draft Chapter 5: URDF for Humanoid Robot Modeling in `book/docs/module1-ros2/chapter05/index.md`
+- [ ] T013 [M1] Create end-of-chapter exercises for ROS 2 concepts in `book/docs/module1-ros2/chapter02/exercises.md`
 - [ ] T014 [M1] Develop a basic ROS 2 publisher/subscriber example in `code-examples/chapter03/basic_pubsub.py`
 - [ ] T015 [M1] Create a ROS 2 service/client example in `code-examples/chapter03/service_example.py`
 - [ ] T016 [M1] Create a ROS 2 action client/server example in `code-examples/chapter03/action_example.py`
@@ -47,12 +47,12 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 
 **Assessment 2 Alignment**: Students must design a simulated robot environment using Gazebo and model robot structure using URDF, validating physics behavior and sensor simulation.
 
-- [ ] T018 [M2] Draft Chapter 6: Gazebo Simulation Environment Setup in `book/chapters/chapter06/index.mdx`
-- [ ] T019 [M2] Draft Chapter 7: Physics Simulation - Gravity, Collisions, Rigid Body Dynamics in `book/chapters/chapter07/index.mdx`
-- [ ] T020 [M2] Draft Chapter 8: URDF and SDF Robot Description Formats in `book/chapters/chapter08/index.mdx`
-- [ ] T021 [M2] Draft Chapter 9: Sensor Simulation - LiDAR, Depth Cameras, IMUs in `book/chapters/chapter09/index.mdx`
-- [ ] T022 [M2] Draft Chapter 10: Unity for Visualization and Human-Robot Interaction in `book/chapters/chapter10/index.mdx`
-- [ ] T023 [M2] Create end-of-chapter exercises for Gazebo simulation in `book/chapters/chapter06/exercises.mdx`
+- [ ] T018 [M2] Draft Chapter 6: Gazebo Simulation Environment Setup in `book/docs/module2-gazebounity/chapter06/index.md`
+- [ ] T019 [M2] Draft Chapter 7: Physics Simulation - Gravity, Collisions, Rigid Body Dynamics in `book/docs/module2-gazebounity/chapter07/index.md`
+- [ ] T020 [M2] Draft Chapter 8: URDF and SDF Robot Description Formats in `book/docs/module2-gazebounity/chapter08/index.md`
+- [ ] T021 [M2] Draft Chapter 9: Sensor Simulation - LiDAR, Depth Cameras, IMUs in `book/docs/module2-gazebounity/chapter09/index.md`
+- [ ] T022 [M2] Draft Chapter 10: Unity for Visualization and Human-Robot Interaction in `book/docs/module2-gazebounity/chapter10/index.md`
+- [ ] T023 [M2] Create end-of-chapter exercises for Gazebo simulation in `book/docs/module2-gazebounity/chapter06/exercises.md`
 - [ ] T024 [M2] Develop a basic Gazebo world with physics simulation in `code-examples/chapter06/basic_world.world`
 - [ ] T025 [M2] Create a sensor simulation example with camera and IMU in `code-examples/chapter09/sensor_simulation.py`
 - [ ] T026 [M2] Create a complete simulated robot environment in `code-examples/chapter06/robot_environment/`
