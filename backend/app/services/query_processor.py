@@ -9,6 +9,7 @@ from app.models.retrieved_chunk import RetrievedChunk
 from app.schemas.query import SourceAttribution
 from app.core.exceptions import RetrievalError, GenerationError, ContextInsufficientError
 from app.config.database import SessionLocal
+from app.utils.performance import perf_monitor
 import asyncio
 
 
@@ -24,6 +25,7 @@ class QueryProcessor:
         # Use the LLM service that handles OpenAI Agents SDK
         pass
 
+    @perf_monitor.measure_time("query_processor.process_query")
     async def process_query(
         self,
         query: str,
@@ -44,6 +46,14 @@ class QueryProcessor:
             Tuple of (response, list of sources used)
         """
         try:
+            # Check if this is a general greeting or conversation that doesn't require book context
+            greeting_keywords = ["hello", "hi", "hey", "greetings", "how are you", "good morning", "good afternoon", "good evening"]
+            is_greeting = any(keyword in query.lower() for keyword in greeting_keywords)
+
+            if is_greeting:
+                # For greetings, return a friendly response without book content
+                return f"Hello! I'm your AI assistant for the Physical AI & Humanoid Robotics Textbook. You can ask me questions about humanoid robotics, the textbook content, or the four modules covered in the book.", []
+
             # Get or create session
             db = SessionLocal()
             try:

@@ -4,6 +4,7 @@ from app.config.qdrant import get_qdrant_client, get_collection_name
 from app.utils.embeddings import EmbeddingGenerator
 from app.models.retrieved_chunk import RetrievedChunk
 from app.core.exceptions import RetrievalError
+from app.utils.performance import perf_monitor
 
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ class VectorStoreService:
         self.collection_name = get_collection_name()
         self.embedding_generator = EmbeddingGenerator()
 
+    @perf_monitor.measure_time("vector_store.search")
     async def search(
         self,
         query_text: str,
@@ -59,9 +61,9 @@ class VectorStoreService:
                     )
 
             # Search in Qdrant
-            search_results = self.client.search(
+            search_results = self.client.query_points(
                 collection_name=self.collection_name,
-                query_vector=query_embedding,
+                query=query_embedding,
                 limit=limit,
                 with_payload=True,
                 query_filter=qdrant_filters
@@ -69,10 +71,12 @@ class VectorStoreService:
 
             # Convert search results to RetrievedChunk objects
             retrieved_chunks = []
-            for result in search_results:
+            for result in search_results.points:  # Access the points attribute
                 payload = result.payload or {}
+                # Use original_id if available, otherwise use the Qdrant ID
+                chunk_id = payload.get("original_id", result.id)
                 chunk = RetrievedChunk(
-                    id=result.id,
+                    id=chunk_id,
                     content=payload.get("content", ""),
                     source=payload.get("source", ""),
                     relevance_score=result.score,
@@ -125,14 +129,18 @@ class VectorStoreService:
                 **(metadata or {})
             }
 
+            # Use UUID for Qdrant point ID as it requires proper format
+            import uuid
+            qdrant_point_id = str(uuid.uuid4())
+
             # Upload to Qdrant
             self.client.upsert(
                 collection_name=self.collection_name,
                 points=[
                     {
-                        "id": doc_id,
+                        "id": qdrant_point_id,
                         "vector": vector,
-                        "payload": payload
+                        "payload": {**payload, "original_id": doc_id}  # Store original ID in payload
                     }
                 ]
             )
@@ -160,6 +168,7 @@ class VectorStoreService:
         """
         try:
             # Prepare points for Qdrant
+            import uuid
             points = []
             for doc in documents:
                 doc_id = doc["id"]
@@ -176,11 +185,15 @@ class VectorStoreService:
                     "page_number": metadata.get("page_number") if metadata else None,
                     "section_title": metadata.get("section_title") if metadata else None,
                     "metadata": metadata or {},
+                    "original_id": doc_id,  # Store original ID in payload
                     **metadata
                 }
 
+                # Use UUID for Qdrant point ID as it requires proper format
+                qdrant_point_id = str(uuid.uuid4())
+
                 points.append({
-                    "id": doc_id,
+                    "id": qdrant_point_id,
                     "vector": vector,
                     "payload": payload
                 })
@@ -223,6 +236,42 @@ class VectorStoreService:
         except Exception as e:
             logger.error(f"Error deleting document from vector store: {str(e)}")
             raise RetrievalError(f"Failed to delete document from vector store: {str(e)}")
+
+    async def delete_book_content(self, book_id: str) -> bool:
+        """
+        Delete all content associated with a book from the vector store.
+
+        Args:
+            book_id: ID of the book to delete
+
+        Returns:
+            True if successful
+        """
+        try:
+            # Delete from Qdrant using payload filter
+            from qdrant_client.http import models
+            filter_condition = models.Filter(
+                must=[
+                    models.FieldCondition(
+                        key="book_id",
+                        match=models.MatchValue(value=book_id)
+                    )
+                ]
+            )
+
+            # Delete all points matching the filter
+            self.client.delete(
+                collection_name=self.collection_name,
+                points_selector=filter_condition
+            )
+
+            logger.info(f"All content for book {book_id} deleted from vector store")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error deleting book content from vector store: {str(e)}")
+            raise RetrievalError(f"Failed to delete book content from vector store: {str(e)}")
 
     async def get_document(self, doc_id: str) -> Optional[RetrievedChunk]:
         """

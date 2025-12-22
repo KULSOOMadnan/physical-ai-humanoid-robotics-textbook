@@ -80,23 +80,35 @@
    GLOBAL TEXT
 ======================= */
 html {
-  font-family: var(--ifm-font-family-base);
+  font-family: var(--ifm-font-family-base) !important;
+}
+
+body {
+  font-family: var(--ifm-font-family-base) !important;
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
 }
 
 .markdown {
-  font-size: 1.15rem;
-  line-height: 1.9;
+  font-size: 1.15rem !important;
+  line-height: 1.9 !important;
 }
 
 /* Headings */
 h1 {
-  font-size: 2.6rem;
+  font-size: 2.6rem !important;
+  color: var(--ifm-heading-color) !important;
+  font-weight: var(--ifm-heading-font-weight) !important;
 }
 h2 {
-  font-size: 2.1rem;
+  font-size: 2.1rem !important;
+  color: var(--ifm-heading-color) !important;
+  font-weight: var(--ifm-heading-font-weight) !important;
 }
 h3 {
-  font-size: 1.7rem;
+  font-size: 1.7rem !important;
+  color: var(--ifm-heading-color) !important;
+  font-weight: var(--ifm-heading-font-weight) !important;
 }
 h1,
 h2,
@@ -104,36 +116,38 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 1.35;
+  line-height: 1.35 !important;
+  font-family: inherit !important;
 }
 
 /* =======================
    NAVBAR
 ======================= */
 .navbar {
-  min-height: var(--ifm-navbar-height);
-  padding: 0 2rem;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1000;
+  min-height: var(--ifm-navbar-height) !important;
+  padding: 0 2rem !important;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  z-index: 1000 !important;
+  background-color: var(--ifm-background-surface-color) !important;
 }
 
 .navbar__logo {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .navbar__logo img {
   height: 130px !important;
   width: auto !important;
-  max-width: 250px;
+  max-width: 250px !important;
 }
 
 /* Optional hover zoom */
 .navbar__logo img:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) !important;
 }
 
 

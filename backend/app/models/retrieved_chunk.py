@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, Text, DateTime, Float, Integer, ForeignKe
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
-from typing import Optional
 
 Base = declarative_base()
 

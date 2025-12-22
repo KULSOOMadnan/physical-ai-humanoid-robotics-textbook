@@ -65,36 +65,44 @@ async def upload_book(
         # Save file temporarily and process
         file_extension = file.filename.split(".")[-1].lower()
         file_path = f"/tmp/{book_id}.{file_extension}"
+        temp_file_created = False
 
-        # Write uploaded file to temporary location
-        with open(file_path, "wb") as buffer:
-            content = await file.read()
-            buffer.write(content)
+        try:
+            # Write uploaded file to temporary location
+            with open(file_path, "wb") as buffer:
+                content = await file.read()
+                buffer.write(content)
+            temp_file_created = True
 
-        # Process based on file type
-        if file_extension == "pdf":
-            result = await content_processor.process_pdf_file(
-                file_path=file_path,
-                title=title,
-                book_id=book_id,
-                metadata=metadata_dict
-            )
-        elif file_extension in ["txt", "md"]:
-            result = await content_processor.process_text_file(
-                file_path=file_path,
-                title=title,
-                book_id=book_id,
-                metadata=metadata_dict
-            )
-        else:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported file extension: {file_extension}"
-            )
-
-        # Clean up temporary file
-        import os
-        os.remove(file_path)
+            # Process based on file type
+            if file_extension == "pdf":
+                result = await content_processor.process_pdf_file(
+                    file_path=file_path,
+                    title=title,
+                    book_id=book_id,
+                    metadata=metadata_dict
+                )
+            elif file_extension in ["txt", "md"]:
+                result = await content_processor.process_text_file(
+                    file_path=file_path,
+                    title=title,
+                    book_id=book_id,
+                    metadata=metadata_dict
+                )
+            else:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Unsupported file extension: {file_extension}"
+                )
+        finally:
+            # Clean up temporary file if it was created
+            if temp_file_created:
+                import os
+                try:
+                    os.remove(file_path)
+                except OSError:
+                    # File might have already been deleted or doesn't exist
+                    pass
 
         return UploadResponse(
             book_id=result["book_id"],

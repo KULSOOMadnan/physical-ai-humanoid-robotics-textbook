@@ -33,10 +33,11 @@ class ConfigManager:
                 "collection_name": os.getenv("QDRANT_COLLECTION_NAME", "book_content"),
             },
             "llm": {
-                "provider": os.getenv("LLM_PROVIDER", "gemini").lower(),
-                "gemini_api_key": settings.GEMINI_API_KEY,
+                "provider": os.getenv("LLM_PROVIDER", "openrouter").lower(),
+                "openrouter_api_key": settings.OPENROUTER_API_KEY,
                 "openai_api_key": settings.OPENAI_API_KEY,
-                "default_model": os.getenv("DEFAULT_LLM_MODEL", "gemini-pro"),
+                "cohere_api_key": settings.COHERE_API_KEY,
+                "default_model": os.getenv("DEFAULT_LLM_MODEL", "openai/gpt-4o-mini"),
             },
             "app": {
                 "debug": settings.DEBUG,
@@ -109,7 +110,7 @@ class ConfigManager:
             "database.url",
             "qdrant.url",
             "qdrant.api_key",
-            "llm.gemini_api_key"
+            "llm.openrouter_api_key"
         ]
 
         missing_keys = []
@@ -145,6 +146,11 @@ class ConfigManager:
             openai_key = self.get("llm.openai_api_key")
             if not openai_key:
                 logger.error("OpenAI API key is required when LLM provider is set to 'openai'")
+                return False
+        elif llm_provider == "openrouter":
+            openrouter_key = self.get("llm.openrouter_api_key")
+            if not openrouter_key:
+                logger.error("OpenRouter API key is required when LLM provider is set to 'openrouter'")
                 return False
 
         logger.info("Configuration validation passed")

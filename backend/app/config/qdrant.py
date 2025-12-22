@@ -47,48 +47,50 @@ class QdrantConfig:
         """
         return self.collection_name
 
-    async def initialize_collection(self, vector_size: int = 1536):
+    async def initialize_collection(self, vector_size: int = 1024):
         """
         Initialize the collection with appropriate vector configuration.
         This should be called during application startup.
 
         Args:
-            vector_size: Size of the embedding vectors (default 1536 for text-embedding-3-small)
+            vector_size: Size of the embedding vectors (default 1024 for Cohere embedding models)
         """
         try:
             # Check if collection already exists
             collections = self.client.get_collections()
             collection_exists = any(col.name == self.collection_name for col in collections.collections)
 
-            if not collection_exists:
-                # Create collection with cosine similarity
-                self.client.create_collection(
-                    collection_name=self.collection_name,
-                    vectors_config=models.VectorParams(
-                        size=vector_size,
-                        distance=models.Distance.COSINE  # Using cosine similarity as per plan
-                    ),
-                    # Enable hybrid search capabilities
-                    hnsw_config=models.HnswConfigDiff(
-                        ef_construct=100,
-                        m=16
-                    ),
-                    optimizers_config=models.OptimizersConfigDiff(
-                        deleted_threshold=0.2,
-                        vacuum_min_vector_number=1000
-                    )
-                )
+            if collection_exists:
+                # Delete the existing collection to recreate with correct dimensions
+                self.client.delete_collection(self.collection_name)
+                logger.info(f"Deleted existing collection '{self.collection_name}' to recreate with correct dimensions")
 
-                # Create payload index for efficient filtering
-                self.client.create_payload_index(
-                    collection_name=self.collection_name,
-                    field_name="book_id",
-                    field_schema=models.PayloadSchemaType.KEYWORD
+            # Create collection with cosine similarity
+            self.client.create_collection(
+                collection_name=self.collection_name,
+                vectors_config=models.VectorParams(
+                    size=vector_size,
+                    distance=models.Distance.COSINE  # Using cosine similarity as per plan
+                ),
+                # Enable hybrid search capabilities
+                hnsw_config=models.HnswConfigDiff(
+                    ef_construct=100,
+                    m=16
+                ),
+                optimizers_config=models.OptimizersConfigDiff(
+                    deleted_threshold=0.2,
+                    vacuum_min_vector_number=1000
                 )
+            )
 
-                logger.info(f"Collection '{self.collection_name}' created successfully")
-            else:
-                logger.info(f"Collection '{self.collection_name}' already exists")
+            # Create payload index for efficient filtering
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="book_id",
+                field_schema=models.PayloadSchemaType.KEYWORD
+            )
+
+            logger.info(f"Collection '{self.collection_name}' created successfully with {vector_size} dimensions")
 
         except Exception as e:
             logger.error(f"Error initializing collection: {str(e)}")

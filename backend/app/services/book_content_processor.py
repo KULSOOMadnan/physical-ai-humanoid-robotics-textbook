@@ -58,7 +58,7 @@ class BookContentProcessor:
             book_id = f"{book_title.replace(' ', '_')}_{content_hash[:8]}"
 
             # Chunk the content
-            chunks = self.text_chunker.chunk_text(content, book_title)
+            chunks = self.text_chunker.chunk_text(content)
 
             # Index each chunk in the vector store
             documents = []
@@ -195,13 +195,19 @@ class BookContentProcessor:
                 content_type = response.headers.get('content-type', '').lower()
                 if 'application/pdf' in content_type:
                     # Download PDF to temporary file and process
-                    with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
-                        tmp_file.write(response.content)
-                        tmp_path = tmp_file.name
+                    tmp_path = None
                     try:
+                        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+                            tmp_file.write(response.content)
+                            tmp_path = tmp_file.name
                         content = await self._extract_from_pdf(Path(tmp_path))
                     finally:
-                        os.unlink(tmp_path)
+                        if tmp_path and os.path.exists(tmp_path):
+                            try:
+                                os.unlink(tmp_path)
+                            except OSError:
+                                # File might have already been deleted or doesn't exist
+                                pass
                 else:
                     # For HTML content, extract text properly
                     if 'text/html' in content_type:

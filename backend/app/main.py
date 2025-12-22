@@ -32,7 +32,7 @@ def create_app() -> FastAPI:
     # Add CORS middleware
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=config_manager.get("app.cors_origins", []),
+        allow_origins=["*"],  # Allow all origins for development
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -50,7 +50,7 @@ def create_app() -> FastAPI:
     @app.on_event("startup")
     async def startup_event():
         """Initialize Qdrant collection on startup."""
-        await qdrant_config.initialize_collection()
+        await qdrant_config.initialize_collection(vector_size=1024)  # Use 1024 dimensions for Cohere embeddings
 
     @app.on_event("shutdown")
     async def shutdown_event():

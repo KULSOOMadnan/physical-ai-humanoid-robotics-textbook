@@ -64,7 +64,7 @@ const config: Config = {
           onUntruncatedBlogPosts: 'warn',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: ['./src/css/tailwind.css', './src/css/custom.css'],
         },
       } satisfies Preset.Options,
     ],
@@ -138,6 +138,11 @@ const config: Config = {
               to: '/docs/module4-vla/quiz/',
             },
           ],
+        },
+        {
+          to: '/chat',
+          label: '🤖 AI Assistant',
+          position: 'left',
         },
         {
           href: 'https://github.com/KULSOOMadnan/physical-ai-humanoid-robotics-textbook',

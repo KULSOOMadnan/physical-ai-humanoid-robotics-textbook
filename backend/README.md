@@ -142,8 +142,11 @@ DATABASE_URL=postgresql+asyncpg://username:password@localhost/dbname
 QDRANT_URL=https://your-cluster-url.qdrant.tech
 QDRANT_API_KEY=your-api-key
 
-# OpenAI (or Google Gemini as configured)
-GEMINI_API_KEY=your-gemini-api-key
+# OpenRouter (for OpenAI Agents)
+OPENROUTER_API_KEY=your-openrouter-api-key
+
+# Cohere (for embeddings)
+COHERE_API_KEY=your-cohere-api-key
 
 # Application
 API_KEY=your-api-key-for-authentication

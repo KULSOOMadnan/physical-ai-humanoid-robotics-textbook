@@ -1,8 +1,9 @@
 from pydantic_settings import BaseSettings
+from pydantic import BaseModel
 from typing import Optional
 
 
-class Settings(BaseSettings):
+class Settings(BaseModel):
     """Application settings loaded from environment variables."""
 
     # Database
@@ -15,8 +16,17 @@ class Settings(BaseSettings):
     # OpenAI (for compatibility)
     OPENAI_API_KEY: Optional[str] = None
 
-    # Google Gemini
-    GEMINI_API_KEY: str
+    # Google Gemini (deprecated - using OpenRouter instead)
+    GEMINI_API_KEY: Optional[str] = None
+
+    # OpenRouter
+    OPENROUTER_API_KEY: str
+
+    # Cohere (for embeddings)
+    COHERE_API_KEY: Optional[str] = None
+
+    # Default LLM Model
+    DEFAULT_LLM_MODEL: str = "openai/gpt-4o-mini"
 
     # Application
     API_KEY: Optional[str] = None

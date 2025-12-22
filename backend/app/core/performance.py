@@ -22,7 +22,7 @@ class CacheStrategy(Enum):
 class CacheEntry:
     value: Any
     timestamp: float
-    ttl: float = None  # None means no expiration
+    ttl: float = 0.0  # None means no expiration
 
 
 class LRUCache:
