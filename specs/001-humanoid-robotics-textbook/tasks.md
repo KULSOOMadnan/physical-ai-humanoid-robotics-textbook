@@ -93,28 +93,28 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 
 **Goal**: Ensure comprehensive coverage of capstone requirements and alignment with all assessments.
 
-- [ ] T045 [CAP] Draft comprehensive capstone implementation guide in `book/chapters/chapter20/implementation_guide.mdx`
-- [ ] T046 [CAP] Create assessment preparation materials for Assessment 1 in `book/docs/assessment1_prep.mdx`
-- [ ] T047 [CAP] Create assessment preparation materials for Assessment 2 in `book/docs/assessment2_prep.mdx`
-- [ ] T048 [CAP] Create assessment preparation materials for Assessment 3 in `book/docs/assessment3_prep.mdx`
+- [ ] T045 [CAP] Draft comprehensive capstone implementation guide in `book/docs/module4-vla/chapter20/implementation_guide.md`
+- [ ] T046 [CAP] Create assessment preparation materials for Assessment 1 in `book/docs/assessment1_prep.md`
+- [ ] T047 [CAP] Create assessment preparation materials for Assessment 2 in `book/docs/assessment2_prep.md`
+- [ ] T048 [CAP] Create assessment preparation materials for Assessment 3 in `book/docs/assessment3_prep.md`
 - [ ] T049 [CAP] Develop a complete end-to-end capstone example in `code-examples/chapter20/end_to_end_example.py`
-- [ ] T050 [CAP] Create troubleshooting guide for common capstone issues in `book/docs/capstone_troubleshooting.mdx`
+- [ ] T050 [CAP] Create troubleshooting guide for common capstone issues in `book/docs/capstone_troubleshooting.md`
 
 ### Phase 8: Hardware & Infrastructure Context
 
 **Goal**: Explain hardware requirements and infrastructure context without assembly guides.
 
-- [ ] T051 [INFRA] Draft Chapter 21: RTX-Class GPUs for Simulation in `book/chapters/chapter21/index.mdx`
-- [ ] T052 [INFRA] Draft Chapter 22: Jetson-Class Edge Devices for Physical AI in `book/chapters/chapter22/index.mdx`
-- [ ] T053 [INFRA] Draft Chapter 23: Sim-to-Real Considerations and Limitations in `book/chapters/chapter23/index.mdx`
-- [ ] T054 [INFRA] Draft Chapter 24: On-Prem vs Cloud-Based Lab Tradeoffs in `book/chapters/chapter24/index.mdx`
+- [ ] T051 [INFRA] Draft Chapter 21: RTX-Class GPUs for Simulation in `book/docs/chapter21/index.md`
+- [ ] T052 [INFRA] Draft Chapter 22: Jetson-Class Edge Devices for Physical AI in `book/docs/chapter22/index.md`
+- [ ] T053 [INFRA] Draft Chapter 23: Sim-to-Real Considerations and Limitations in `book/docs/chapter23/index.md`
+- [ ] T054 [INFRA] Draft Chapter 24: On-Prem vs Cloud-Based Lab Tradeoffs in `book/docs/chapter24/index.md`
 
 ### Phase 9: Polish & Cross-Cutting Concerns
 
 - [ ] T055 Review and refine all chapter introductions and summaries for consistency and clarity
 - [ ] T056 Ensure all code examples are thoroughly commented and follow PEP 8 standards across the codebase
 - [ ] T057 Verify all internal links within the Docusaurus site are functional
-- [ ] T058 Implement a comprehensive glossary of terms in `book/docs/glossary.mdx`
+- [ ] T058 Implement a comprehensive glossary of terms in `book/docs/glossary.md`
 - [ ] T059 Add end-of-chapter quizzes and projects for all chapters (2-24)
 - [ ] T060 Optimize all images and diagrams for web performance and accessibility
 - [ ] T061 Conduct a final accessibility audit of the Docusaurus site
@@ -123,4 +123,4 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 - [ ] T064 Write a comprehensive README for the GitHub repository
 - [ ] T065 Ensure a LICENSE file is included in the repository
 - [ ] T066 Perform final proofreading and copyediting of all textbook content
-- [ ] T067 Create instructor resources and solutions guide in `book/docs/instructor_resources.mdx`
+- [ ] T067 Create instructor resources and solutions guide in `book/docs/instructor_resources.md`

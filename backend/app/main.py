@@ -72,6 +72,10 @@ def create_app() -> FastAPI:
             "qdrant_configured": bool(config_manager.get("qdrant.url"))
         }
 
+    @app.get("/")
+    async def root():
+        return {"status": "server is running"}
+
     return app
 
 
