@@ -1,9 +1,224 @@
-# Feature Specification: Physical AI & Humanoid Robotics Textbook
+# Feature Specification: Physical AI & Humanoid Robotics — Official Hackathon Course Book
 
 **Feature Branch**: `001-humanoid-robotics-textbook`
 **Created**: 2025-12-04
 **Status**: Draft
-**Input**: User description: "A comprehensive educational textbook teaching Physical AI and Humanoid Robotics, focusing on bridging the gap between AI software and physical embodiment. The textbook prepares students to control humanoid robots in both simulated and real-world environments."
+**Input**: User description: "Revise and structure the book Physical AI & Humanoid Robotics so that it serves as a direct, complete, and authoritative textbook for the official hackathon course. This specification applies only to book content. It excludes chatbots, RAG systems, agents, APIs, or software tooling."
+
+---
+
+### Project
+
+Revise and structure the book **Physical AI & Humanoid Robotics** so that it serves as a **direct, complete, and authoritative textbook** for the official hackathon course.
+
+This specification applies **only to book content**.
+It excludes chatbots, RAG systems, agents, APIs, or software tooling.
+
+---
+
+### Primary Goal
+
+Ensure the book **fully matches the hackathon curriculum**, enabling students to progress from **Physical AI foundations** to a **simulated autonomous humanoid capstone**, using the same concepts, tools, and terminology defined in the course.
+
+The book must bridge:
+- The **digital brain** (AI models, planning, perception)
+- The **physical body** (robots, sensors, actuators, physics)
+
+---
+
+### Core Theme Alignment (Mandatory)
+
+All chapters must reinforce:
+- Physical AI and embodied intelligence
+- AI systems operating under real-world physical constraints
+- Human-centered humanoid robotics
+- Sim-to-Real development workflows
+
+---
+
+### Target Audience
+
+- Students enrolled in the Physical AI & Humanoid Robotics hackathon
+- Educators teaching embodied AI and robotics
+- Evaluators validating curriculum compliance
+
+---
+
+## Required Course Coverage
+
+### Quarter Overview
+- Transition from digital-only AI to AI operating in physical environments
+- Designing, simulating, and deploying humanoid robots
+- Use of ROS 2, Gazebo, Unity, and NVIDIA Isaac
+- Natural human–robot interaction through perception, planning, and action
+
+---
+
+## Module-Aligned Content Requirements
+
+### Module 1: The Robotic Nervous System (ROS 2)
+- ROS 2 as middleware for robot control
+- Nodes, topics, services, and actions
+- Bridging Python-based intelligence to ROS controllers using `rclpy`
+- URDF for humanoid robot modeling
+
+### Module 2: The Digital Twin (Gazebo & Unity)
+- Physics simulation: gravity, collisions, rigid body dynamics
+- Gazebo environment setup and robot simulation
+- Unity for visualization and human–robot interaction
+- Sensor simulation: LiDAR, depth cameras, IMUs
+
+### Module 3: The AI–Robot Brain (NVIDIA Isaac)
+- NVIDIA Isaac Sim and photorealistic simulation
+- Synthetic data generation for perception
+- Isaac ROS for hardware-accelerated pipelines
+- Visual SLAM (VSLAM) and navigation
+- Nav2 for humanoid path planning
+
+### Module 4: Vision–Language–Action (VLA)
+- Voice-to-action pipelines
+- Speech input and intent understanding
+- Translating natural language tasks into ROS 2 action sequences
+- Multi-modal perception (vision, language, motion)
+
+---
+
+## Assessments (Mandatory Book Alignment)
+
+The book **must explicitly support the following graded assessments**.
+Each assessment must reference relevant chapters and concepts.
+
+### Assessment 1: ROS 2 Control Project
+- Develop and explain ROS 2 nodes, topics, and services
+- Demonstrate message flow between perception, planning, and actuation
+- Emphasis: correctness of ROS architecture and control logic
+
+### Assessment 2: Simulation & Digital Twin Implementation
+- Design a simulated robot environment using Gazebo
+- Model robot structure using URDF
+- Validate physics behavior and sensor simulation
+
+### Assessment 3: Isaac-Based Perception Pipeline
+- Explain perception workflows using NVIDIA Isaac
+- Cover VSLAM, navigation, and sensor fusion concepts
+- Emphasis: understanding AI perception under physical constraints
+
+The book must:
+- Prepare students conceptually for all assessments
+- Explain *what is being evaluated* and *why it matters physically*
+
+---
+
+## Capstone Project Specification (Mandatory)
+
+### Capstone Title
+**The Autonomous Simulated Humanoid**
+
+### Objective
+Design and explain a **fully autonomous simulated humanoid robot** that integrates:
+- Perception
+- Planning
+- Navigation
+- Interaction
+- Manipulation
+
+### Capstone Scenario
+A simulated humanoid robot must:
+1. Receive a **voice command**
+2. Interpret intent using language understanding
+3. Plan a sequence of actions
+4. Navigate a simulated environment
+5. Identify a target object using vision
+6. Manipulate or interact with the object
+
+### Required Capstone Coverage in the Book
+
+The book must explicitly explain:
+- End-to-end Vision–Language–Action (VLA) architecture
+- How ROS 2 nodes coordinate perception, planning, and control
+- Role of simulation in validating autonomy
+- Sim-to-Real considerations and limitations
+- Failure modes, latency, and physical constraints
+
+### Capstone Evaluation Criteria (Conceptual)
+- Correct integration of all course modules
+- Physical plausibility of robot behavior
+- Clear reasoning from command → perception → action
+- System-level understanding, not just isolated components
+
+---
+
+## Learning Outcomes Mapping
+Each chapter must clearly support one or more of the following:
+- Understanding Physical AI and embodied intelligence
+- Mastery of ROS 2 for robotic control
+- Robot simulation using Gazebo and Unity
+- Development with NVIDIA Isaac AI platform
+- Humanoid locomotion and manipulation
+- Conversational robotics using GPT-based models
+
+---
+
+## Weekly Breakdown Alignment
+Book sections must map directly to:
+- Weeks 1–2: Physical AI foundations and sensors
+- Weeks 3–5: ROS 2 architecture and development
+- Weeks 6–7: Robot simulation and digital twins
+- Weeks 8–10: Isaac platform and AI perception
+- Weeks 11–12: Humanoid locomotion and manipulation
+- Week 13: Conversational robotics and multimodal interaction
+
+---
+
+## Hardware & Infrastructure Context (Conceptual Only)
+The book must explain:
+- Why RTX-class GPUs are required for simulation
+- Why Jetson-class edge devices matter for Physical AI
+- Role of real-world sensors in perception
+- Sim-to-Real constraints and latency issues
+- On-Prem vs Cloud-based lab tradeoffs
+
+**No assembly guides or procurement instructions allowed.**
+
+---
+
+## Content Quality Standards
+- Technically accurate and current
+- Applied robotics focus (not abstract AI theory)
+- Correct robotics terminology
+- Progressive learning flow: theory → simulation → autonomy
+- Zero filler content
+
+---
+
+## Constraints
+- No generic AI/ML content unrelated to robotics
+- No vendor marketing
+- No ethics or policy discussion
+- No step-by-step hardware build guides
+
+---
+
+## Success Criteria
+- Every chapter maps to a module, assessment, or capstone requirement
+- Students can prepare for assessments using only the book
+- Capstone requirements are fully explainable from book content
+- Book stands alone as the primary course resource
+
+---
+
+## Not Included
+- Chatbots or AI assistants
+- Code repositories
+- Assessment solutions
+- Hardware purchasing guides
+
+---
+
+### Timeline
+Content revision completed within the hackathon schedule
+
+---
 
 ## User Scenarios & Testing
 
@@ -129,6 +344,12 @@ A student wants to learn about designing humanoid robots that can work safely an
 -   **FR-018**: The textbook MUST provide troubleshooting guides and common pitfalls.
 -   **FR-019**: The textbook MUST include end-of-chapter quizzes and projects.
 -   **FR-020**: The textbook MUST present all mathematical concepts with intuitive explanations and formal notation.
+-   **FR-021**: The textbook MUST align all content directly with module requirements (Module 1-4).
+-   **FR-022**: The textbook MUST explicitly reference assessment requirements and preparation strategies.
+-   **FR-023**: The textbook MUST provide comprehensive coverage of the capstone project requirements.
+-   **FR-024**: The textbook MUST explain the role of ROS 2, Gazebo, Unity, and NVIDIA Isaac in the curriculum.
+-   **FR-025**: The textbook MUST address hardware infrastructure context and conceptual understanding.
+-   **FR-026**: The textbook MUST maintain focus on applied robotics rather than abstract AI theory.
 
 ### Key Entities
 
@@ -141,6 +362,8 @@ A student wants to learn about designing humanoid robots that can work safely an
 -   **Sensor Data**: Inputs from the robot's environment (vision, touch, proprioception).
 -   **Control Algorithm**: Software logic to direct robot actions.
 -   **Motion Plan**: A sequence of movements for the robot to achieve a goal.
+-   **Assessment**: Graded evaluation of student understanding and implementation.
+-   **Capstone Project**: The final comprehensive project integrating all course modules.
 
 ## Clarifications
 
@@ -157,6 +380,8 @@ A student wants to learn about designing humanoid robots that can work safely an
 -   Readers have a basic understanding of AI concepts, programming (e.g., Python), and linear algebra.
 -   Access to recommended open-source simulation environments is available to readers.
 -   The primary programming language for code examples will be Python.
+-   Students have access to appropriate hardware infrastructure (RTX-class GPUs) for simulation.
+-   Students are enrolled in or preparing for the Physical AI & Humanoid Robotics hackathon.
 
 ## Key Differentiators
 
@@ -167,6 +392,8 @@ A student wants to learn about designing humanoid robots that can work safely an
 4.  **Accessible**: Open-source tools and freely available simulators.
 5.  **Industry-Relevant**: Case studies from current humanoid robotics projects.
 6.  **Interactive Format**: Leverages interactive web formats with runnable code examples.
+7.  **Curriculum-Aligned**: Direct mapping to hackathon course modules and assessments.
+8.  **Capstone-Integrated**: Comprehensive coverage of the final project requirements.
 
 ## Success Criteria
 
@@ -192,6 +419,11 @@ A student wants to learn about designing humanoid robots that can work safely an
 -   **SC-018**: The code-to-text ratio will be a minimum of 30%.
 -   **SC-019**: Each chapter will contain at least 2-3 technical diagrams.
 -   **SC-020**: The textbook will include a minimum of 100 academic and industry sources.
+-   **SC-021**: Every chapter maps to a module, assessment, or capstone requirement as specified in the curriculum.
+-   **SC-022**: Students can prepare for all three assessments using only the book content.
+-   **SC-023**: Capstone project requirements are fully explainable from book content with no gaps.
+-   **SC-024**: Book stands alone as the primary course resource without requiring external materials.
+-   **SC-025**: All content aligns with the four core modules (ROS 2, Gazebo/Unity, NVIDIA Isaac, VLA).
 
 ## Deliverables
 

@@ -7,6 +7,7 @@ from app.services.query_processor import query_processor
 from app.services.session_manager import session_manager
 from app.services.llm_service import llm_service
 from app.config.database import SessionLocal
+from app.utils.database import get_db_session
 from app.core.exceptions import RAGException, ContextInsufficientError
 
 
@@ -22,19 +23,6 @@ async def process_query(request: QueryRequest):
     session_id = request.session_id or str(uuid.uuid4())
 
     try:
-        # Get database session
-        db = SessionLocal()
-        try:
-            # Update session if it exists, or create a new one
-            session = await session_manager.get_or_create_session(
-                db,
-                session_id,
-                request.mode,
-                request.selected_text
-            )
-        finally:
-            db.close()
-
         # Process the query using the query processor
         response_text, sources = await query_processor.process_query(
             query=request.query,

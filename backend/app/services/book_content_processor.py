@@ -2,7 +2,6 @@ import logging
 import asyncio
 from typing import List, Dict, Any, Optional
 from pathlib import Path
-import fitz  # PyMuPDF
 import requests
 from bs4 import BeautifulSoup
 import tempfile
@@ -16,6 +15,8 @@ from app.config.database import SessionLocal
 from sqlalchemy.orm import Session
 from app.config.qdrant import qdrant_config
 import hashlib
+from app.utils.content_extraction import extract_text_from_pdf, extract_text_from_file
+from app.utils.database import get_db_session
 
 
 logger = logging.getLogger(__name__)
@@ -124,20 +125,8 @@ class BookContentProcessor:
         Returns:
             Extracted text content
         """
-        file_path = Path(file_path)
-        if not file_path.exists():
-            raise FileNotFoundError(f"File not found: {file_path}")
-
-        # Handle different file types
-        if file_path.suffix.lower() == '.pdf':
-            return await self._extract_from_pdf(file_path)
-        elif file_path.suffix.lower() in ['.txt', '.md', '.rst']:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return f.read()
-        else:
-            # Try to read as text file
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return f.read()
+        # Use the shared utility function
+        return await extract_text_from_file(file_path)
 
     async def _extract_from_pdf(self, pdf_path: Path) -> str:
         """
@@ -150,18 +139,8 @@ class BookContentProcessor:
             Extracted text content
         """
         try:
-            doc = fitz.open(pdf_path)
-            text_parts = []
-
-            for page_num in range(len(doc)):
-                page = doc.load_page(page_num)
-                text = page.get_text()
-                # Add page number information to the text
-                text_with_page = f"[PAGE_{page_num + 1}] {text}"
-                text_parts.append(text_with_page)
-
-            doc.close()
-            return "\n".join(text_parts)
+            # Use the shared utility function
+            return await extract_text_from_pdf(str(pdf_path))
         except Exception as e:
             logger.error(f"Error extracting text from PDF {pdf_path}: {str(e)}")
             raise
@@ -200,7 +179,7 @@ class BookContentProcessor:
                         with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
                             tmp_file.write(response.content)
                             tmp_path = tmp_file.name
-                        content = await self._extract_from_pdf(Path(tmp_path))
+                        content = await extract_text_from_pdf(tmp_path)
                     finally:
                         if tmp_path and os.path.exists(tmp_path):
                             try:
@@ -283,36 +262,34 @@ class BookContentProcessor:
             content: Full book content
             metadata: Additional metadata
         """
-        db = SessionLocal()
-        try:
-            # Check if book already exists
-            existing_book = db.query(BookContent).filter(BookContent.id == book_id).first()
+        async with get_db_session() as db:
+            try:
+                # Check if book already exists
+                existing_book = db.query(BookContent).filter(BookContent.id == book_id).first()
 
-            if existing_book:
-                # Update existing book
-                existing_book.title = title
-                existing_book.content = content
-                existing_book.book_metadata = metadata or {}
-                existing_book.chunks = []  # This will be handled by vector store
-            else:
-                # Create new book entry
-                book_entry = BookContent(
-                    id=book_id,
-                    title=title,
-                    content=content,
-                    book_metadata=metadata or {},
-                    chunks=[]  # This will be handled by vector store
-                )
-                db.add(book_entry)
+                if existing_book:
+                    # Update existing book
+                    existing_book.title = title
+                    existing_book.content = content
+                    existing_book.book_metadata = metadata or {}
+                    existing_book.chunks = []  # This will be handled by vector store
+                else:
+                    # Create new book entry
+                    book_entry = BookContent(
+                        id=book_id,
+                        title=title,
+                        content=content,
+                        book_metadata=metadata or {},
+                        chunks=[]  # This will be handled by vector store
+                    )
+                    db.add(book_entry)
 
-            db.commit()
-            logger.info(f"Book metadata stored for {book_id}")
-        except Exception as e:
-            db.rollback()
-            logger.error(f"Error storing book metadata: {str(e)}")
-            raise
-        finally:
-            db.close()
+                db.commit()
+                logger.info(f"Book metadata stored for {book_id}")
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Error storing book metadata: {str(e)}")
+                raise
 
     async def process_book_from_file(self, file_path: str, title: str, metadata: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -359,8 +336,7 @@ class BookContentProcessor:
         Returns:
             List of book information
         """
-        db = SessionLocal()
-        try:
+        async with get_db_session() as db:
             books = db.query(BookContent).all()
             return [
                 {
@@ -372,8 +348,6 @@ class BookContentProcessor:
                 }
                 for book in books
             ]
-        finally:
-            db.close()
 
     async def delete_book(self, book_id: str) -> bool:
         """
@@ -389,20 +363,18 @@ class BookContentProcessor:
         await vector_store_service.delete_book_content(book_id)
 
         # Then delete from database
-        db = SessionLocal()
-        try:
-            book = db.query(BookContent).filter(BookContent.id == book_id).first()
-            if book:
-                db.delete(book)
-                db.commit()
-                return True
-            return False
-        except Exception as e:
-            db.rollback()
-            logger.error(f"Error deleting book {book_id}: {str(e)}")
-            return False
-        finally:
-            db.close()
+        async with get_db_session() as db:
+            try:
+                book = db.query(BookContent).filter(BookContent.id == book_id).first()
+                if book:
+                    db.delete(book)
+                    db.commit()
+                    return True
+                return False
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Error deleting book {book_id}: {str(e)}")
+                return False
 
 
 # Global book content processor instance

@@ -10,6 +10,7 @@ from app.schemas.query import SourceAttribution
 from app.core.exceptions import RetrievalError, GenerationError, ContextInsufficientError
 from app.config.database import SessionLocal
 from app.utils.performance import perf_monitor
+from app.utils.database import get_db_session
 import asyncio
 
 
@@ -55,12 +56,9 @@ class QueryProcessor:
                 return f"Hello! I'm your AI assistant for the Physical AI & Humanoid Robotics Textbook. You can ask me questions about humanoid robotics, the textbook content, or the four modules covered in the book.", []
 
             # Get or create session
-            db = SessionLocal()
-            try:
+            async with get_db_session() as db:
                 session = await session_manager.get_or_create_session(db, session_id, mode, selected_text)
                 session_id = session.id
-            finally:
-                db.close()
 
             # Retrieve context based on mode
             if mode == QueryMode.SELECTED_TEXT_ONLY:

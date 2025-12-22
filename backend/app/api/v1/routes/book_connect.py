@@ -119,11 +119,10 @@ async def get_book_status(book_id: str):
     try:
         # This would check the status in a real implementation
         # For now, we'll just return that the book exists
-        from app.config.database import SessionLocal
         from app.models.book_content import BookContent
+        from app.utils.database import get_db_session
 
-        db = SessionLocal()
-        try:
+        async with get_db_session() as db:
             book = db.query(BookContent).filter(BookContent.id == book_id).first()
 
             if not book:
@@ -136,8 +135,6 @@ async def get_book_status(book_id: str):
                 "indexed_chunks": len(book.chunks) if book.chunks else 0,
                 "indexed_in_vector_store": True  # Would check actual vector store in real implementation
             }
-        finally:
-            db.close()
     except HTTPException:
         raise
     except Exception as e:

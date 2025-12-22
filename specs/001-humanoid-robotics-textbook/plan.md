@@ -1,44 +1,47 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Physical AI & Humanoid Robotics — Official Hackathon Course Book
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Branch**: `001-humanoid-robotics-textbook` | **Date**: 2025-12-22 | **Spec**: specs/001-humanoid-robotics-textbook/spec.md
+**Input**: Feature specification from `/specs/001-humanoid-robotics-textbook/spec.md`
 
 **Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Develop a comprehensive web-based textbook for the Physical AI & Humanoid Robotics hackathon course that bridges the gap between digital AI and physical embodiment. The textbook must align with the 4-module curriculum (ROS 2, Gazebo/Unity, NVIDIA Isaac, VLA) and support all three assessments plus the capstone project. The implementation will use Docusaurus for the web platform with interactive code examples and simulation environments.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Python 3.10+, JavaScript/TypeScript for Docusaurus, Node.js v18+
+**Primary Dependencies**: Docusaurus 3.x, ROS 2 Humble Hawksbill, Gazebo Garden, NVIDIA Isaac Sim, OpenAI Whisper
+**Storage**: Files for content storage, no database required
+**Testing**: pytest for Python examples, Jest for web components, manual verification of Docusaurus build
+**Target Platform**: Web-based (GitHub Pages), with Python simulation examples
+**Project Type**: Web-based documentation with code examples - determines source structure
+**Performance Goals**: Fast loading pages (under 3 seconds), interactive examples with minimal latency, mobile-responsive design
+**Constraints**: Must work with RTX-class GPUs for simulation, support ROS 2 ecosystem, comply with 60,000-90,000 word count requirement
+**Scale/Scope**: 20+ chapters, 50+ code examples, 30+ diagrams, 100+ academic sources, 13-week curriculum alignment
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Phase 0 Status**: COMPLETE - Research.md created with technology stack decisions and architecture patterns
+**Phase 1 Status**: COMPLETE - Data-model.md, quickstart.md created; contracts directory established
+
+- Curriculum alignment: All content must map to modules, assessments, and capstone requirements (FR-021, FR-022, FR-023) ✓ RESOLVED
+- Technology stack: Must use open-source tools available to students (complies with constitution's Technical Requirements) ✓ RESOLVED
+- Accessibility: Content must be accessible via web platform with interactive elements (complies with constitution's Deployment Excellence) ✓ RESOLVED
+- Content Quality: Must meet constitution's standards for clarity, accuracy, consistency, and completeness ✓ RESOLVED
+- Platform Compliance: Must use Docusaurus v3.x+ as required by constitution ✓ RESOLVED
+
+**CONSTITUTION CHECK PASSED** - All gates satisfied with research-based resolutions
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
+specs/001-humanoid-robotics-textbook/
 ├── plan.md              # This file (/sp.plan command output)
 ├── research.md          # Phase 0 output (/sp.plan command)
 ├── data-model.md        # Phase 1 output (/sp.plan command)
@@ -48,51 +51,36 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+book/
+├── docs/                # Static documentation content
+├── src/                 # Custom React components for Docusaurus
+├── static/              # Static assets (images, diagrams)
+├── docusaurus.config.js # Docusaurus configuration
+├── sidebars.js          # Navigation structure
+└── package.json         # Node.js dependencies
 
-tests/
-├── contract/
-├── integration/
-└── unit/
+code-examples/
+├── chapter01/           # ROS 2 examples
+├── chapter02/           # Gazebo simulation examples
+├── chapter03/           # Isaac platform examples
+├── chapter04/           # VLA examples
+├── chapter20/           # Capstone project examples
+└── requirements.txt     # Python dependencies
 
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
+.github/
+└── workflows/
+    └── deploy.yml       # GitHub Actions for deployment
 
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+book/chapters/          # Textbook content organized by modules
+├── chapter01/          # Module 1: ROS 2
+├── chapter02/          # Module 2: Gazebo/Unity
+├── chapter03/          # Module 3: Isaac
+└── chapter04/          # Module 4: VLA
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: Web-based textbook using Docusaurus framework with modular chapter organization aligned to the 4 curriculum modules. Code examples are separated in dedicated directories by chapter for easy maintenance and student access.
 
 ## Complexity Tracking
 
@@ -100,5 +88,5 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Multi-tool ecosystem | Course requires ROS 2, Gazebo, Isaac Sim, and Unity | Single tool insufficient for full curriculum coverage |
+| Hardware dependencies | RTX-class GPUs required for simulation | CPU-only simulation inadequate for learning objectives |

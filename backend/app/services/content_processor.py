@@ -2,13 +2,14 @@ import logging
 import asyncio
 from typing import List, Dict, Any, Optional
 from pathlib import Path
-import fitz  # PyMuPDF
 from app.utils.text_chunker import TextChunker
 from app.utils.embeddings import EmbeddingGenerator
 from app.config.qdrant import get_qdrant_client, get_collection_name
 from app.models.book_content import BookContent
 from app.config.database import SessionLocal
 from app.core.exceptions import ContentProcessingError
+from app.utils.content_extraction import extract_text_from_file
+from app.utils.database import get_db_session
 
 
 logger = logging.getLogger(__name__)
@@ -76,8 +77,7 @@ class ContentProcessor:
             logger.info(f"Uploaded {len(points)} points to Qdrant collection '{self.collection_name}'")
 
             # Create database record for the book content
-            db = SessionLocal()
-            try:
+            async with get_db_session() as db:
                 book_record = BookContent(
                     id=book_id,
                     title=title,
@@ -88,8 +88,6 @@ class ContentProcessor:
                 db.add(book_record)
                 db.commit()
                 db.refresh(book_record)
-            finally:
-                db.close()
 
             return {
                 "book_id": book_id,
@@ -121,15 +119,8 @@ class ContentProcessor:
             Dictionary with processing results
         """
         try:
-            # Extract text from PDF
-            doc = fitz.open(file_path)
-            content = ""
-
-            for page_num in range(len(doc)):
-                page = doc.load_page(page_num)
-                content += page.get_text()
-
-            doc.close()
+            # Extract text from PDF using shared utility
+            content = await extract_text_from_file(file_path)
 
             logger.info(f"Extracted {len(content)} characters from PDF")
 
@@ -158,8 +149,8 @@ class ContentProcessor:
             Dictionary with processing results
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as file:
-                content = file.read()
+            # Extract text from file using shared utility
+            content = await extract_text_from_file(file_path)
 
             logger.info(f"Read {len(content)} characters from text file")
 

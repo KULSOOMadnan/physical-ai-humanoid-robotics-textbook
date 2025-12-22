@@ -86,13 +86,11 @@ def test_integration_session_management(client):
         assert data["session_id"] == "test-session-123"
 
         # Verify session was created in the database
-        db: Session = SessionLocal()
-        try:
+        from app.utils.database import get_db_session
+        async with get_db_session() as db:
             session = db.query(QuerySession).filter(QuerySession.id == "test-session-123").first()
             assert session is not None
             assert session.query_mode == QueryMode.GLOBAL
-        finally:
-            db.close()
 
 
 def test_integration_context_insufficient_error(client):
