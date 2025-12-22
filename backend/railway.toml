@@ -3,7 +3,7 @@ builder = "nixpacks"
 command = "pip install --upgrade pip && pip install -r requirements.txt"
 
 [deploy]
-startCommand = "python -c \"import sys; sys.path.insert(0, '.'); exec(open('server.py').read())\""
+startCommand = "python server.py"
 
 [variables]
 DATABASE_URL = { fromService = "postgres", as = "DATABASE_URL" }
