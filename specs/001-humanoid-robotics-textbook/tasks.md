@@ -63,12 +63,12 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 
 **Assessment 3 Alignment**: Students must explain perception workflows using NVIDIA Isaac, covering VSLAM, navigation, and sensor fusion concepts, emphasizing understanding AI perception under physical constraints.
 
-- [ ] T027 [M3] Draft Chapter 11: NVIDIA Isaac Sim and Photorealistic Simulation in `book/chapters/chapter11/index.mdx`
-- [ ] T028 [M3] Draft Chapter 12: Synthetic Data Generation for Perception in `book/chapters/chapter12/index.mdx`
-- [ ] T029 [M3] Draft Chapter 13: Isaac ROS for Hardware-Accelerated Pipelines in `book/chapters/chapter13/index.mdx`
-- [ ] T030 [M3] Draft Chapter 14: Visual SLAM (VSLAM) and Navigation in `book/chapters/chapter14/index.mdx`
-- [ ] T031 [M3] Draft Chapter 15: Nav2 for Humanoid Path Planning in `book/chapters/chapter15/index.mdx`
-- [ ] T032 [M3] Create end-of-chapter exercises for Isaac platform in `book/chapters/chapter11/exercises.mdx`
+- [ ] T027 [M3] Draft Chapter 11: NVIDIA Isaac Sim and Photorealistic Simulation in `book/docs/module3-nvidiaisaac/chapter11/index.md`
+- [ ] T028 [M3] Draft Chapter 12: Synthetic Data Generation for Perception in `book/docs/module3-nvidiaisaac/chapter12/index.md`
+- [ ] T029 [M3] Draft Chapter 13: Isaac ROS for Hardware-Accelerated Pipelines in `book/docs/module3-nvidiaisaac/chapter13/index.md`
+- [ ] T030 [M3] Draft Chapter 14: Visual SLAM (VSLAM) and Navigation in `book/docs/module3-nvidiaisaac/chapter14/index.md`
+- [ ] T031 [M3] Draft Chapter 15: Nav2 for Humanoid Path Planning in `book/docs/module3-nvidiaisaac/chapter15/index.md`
+- [ ] T032 [M3] Create end-of-chapter exercises for Isaac platform in `book/docs/module3-nvidiaisaac/chapter11/exercises.md`
 - [ ] T033 [M3] Develop a basic Isaac Sim perception pipeline in `code-examples/chapter11/perception_pipeline.py`
 - [ ] T034 [M3] Create a VSLAM example using Isaac tools in `code-examples/chapter14/vslam_example.py`
 - [ ] T035 [M3] Implement a navigation example with Nav2 for humanoid in `code-examples/chapter15/navigation_example.py`
@@ -79,12 +79,12 @@ This document outlines the actionable tasks for developing the "Physical AI & Hu
 
 **Capstone Alignment**: Students must build a simulated humanoid robot that receives voice commands, interprets intent, plans actions, navigates, identifies objects using vision, and manipulates them.
 
-- [ ] T036 [M4] Draft Chapter 16: Voice-to-Action Pipelines in `book/chapters/chapter16/index.mdx`
-- [ ] T037 [M4] Draft Chapter 17: Speech Input and Intent Understanding in `book/chapters/chapter17/index.mdx`
-- [ ] T038 [M4] Draft Chapter 18: Translating Natural Language to ROS 2 Action Sequences in `book/chapters/chapter18/index.mdx`
-- [ ] T039 [M4] Draft Chapter 19: Multi-Modal Perception (Vision, Language, Motion) in `book/chapters/chapter19/index.mdx`
-- [ ] T040 [M4] Draft Chapter 20: The Autonomous Simulated Humanoid Capstone in `book/chapters/chapter20/index.mdx`
-- [ ] T041 [M4] Create end-of-chapter exercises for VLA concepts in `book/chapters/chapter16/exercises.mdx`
+- [ ] T036 [M4] Draft Chapter 16: Voice-to-Action Pipelines in `book/docs/module4-vla/chapter16/index.md`
+- [ ] T037 [M4] Draft Chapter 17: Speech Input and Intent Understanding in `book/docs/module4-vla/chapter17/index.md`
+- [ ] T038 [M4] Draft Chapter 18: Translating Natural Language to ROS 2 Action Sequences in `book/docs/module4-vla/chapter18/index.md`
+- [ ] T039 [M4] Draft Chapter 19: Multi-Modal Perception (Vision, Language, Motion) in `book/docs/module4-vla/chapter19/index.md`
+- [ ] T040 [M4] Draft Chapter 20: The Autonomous Simulated Humanoid Capstone in `book/docs/module4-vla/chapter20/index.md`
+- [ ] T041 [M4] Create end-of-chapter exercises for VLA concepts in `book/docs/module4-vla/chapter16/exercises.md`
 - [ ] T042 [M4] Develop a voice command to ROS action translator in `code-examples/chapter18/voice_to_action.py`
 - [ ] T043 [M4] Create a multi-modal perception example combining vision and language in `code-examples/chapter19/multimodal_perception.py`
 - [ ] T044 [M4] Implement the complete capstone project architecture in `code-examples/chapter20/capstone_project/`
