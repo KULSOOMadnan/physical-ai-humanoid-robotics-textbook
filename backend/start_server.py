@@ -45,16 +45,24 @@ def main():
 
     # Start the server
     port = int(os.environ.get("PORT", 8000))
-    print(f"Starting server on port {port}")
+    host = os.environ.get("HOST", "0.0.0.0")
+    print(f"Starting server on {host}:{port}")
 
     try:
         import uvicorn
+        print("Uvicorn imported successfully")
+
+        # Run with reload=False and proper logging
         uvicorn.run(
             app,
-            host="0.0.0.0",
+            host=host,
             port=port,
-            log_level="info"
+            log_level="info",
+            reload=False,
+            timeout_graceful_shutdown=5,
+            timeout_keep_alive=5
         )
+        print("Server started successfully")
     except Exception as e:
         print(f"Error starting server: {e}")
         import traceback
