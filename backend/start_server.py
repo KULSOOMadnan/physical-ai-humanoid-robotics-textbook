@@ -24,9 +24,6 @@ def install_requirements():
         # Install packages from the Railway requirements file
         subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
 
-        # Install the current package in non-editable mode
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "."])
-
         print("Successfully installed requirements for Railway deployment")
         return True
     except subprocess.CalledProcessError as e:
@@ -65,22 +62,21 @@ def main():
 
     # Start the server
     port = int(os.environ.get("PORT", 8000))
-    host = os.environ.get("HOST", "0.0.0.0")
+    host = "0.0.0.0"  # Always use 0.0.0.0 for Railway
     print(f"Starting server on {host}:{port}")
 
     try:
         import uvicorn
         print("Uvicorn imported successfully")
 
-        # Run with reload=False and proper logging
+        # Run with minimal configuration to avoid startup issues
         uvicorn.run(
             app,
             host=host,
             port=port,
             log_level="info",
             reload=False,
-            timeout_graceful_shutdown=5,
-            timeout_keep_alive=5
+            workers=1
         )
         print("Server started successfully")
     except Exception as e:
