@@ -66,7 +66,7 @@ def create_app() -> FastAPI:
         """Return basic configuration information (without sensitive data)."""
         return {
             "status": "healthy",
-            "debug": settings.DEBUG,
+            "debug": get_settings().DEBUG,
             "llm_provider": config_manager.get("llm.provider"),
             "database_configured": bool(config_manager.get("database.url")),
             "qdrant_configured": bool(config_manager.get("qdrant.url"))
