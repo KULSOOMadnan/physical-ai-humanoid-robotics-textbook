@@ -3,7 +3,7 @@ builder = "nixpacks"
 command = "pip install --upgrade pip && pip install -r requirements_railway.txt"
 
 [deploy]
-startCommand = "python -c \"from app.main import create_app; import uvicorn; uvicorn.run(create_app(), host='0.0.0.0', port=int(${PORT:-8000}), log_level='info', reload=False, workers=1)\""
+startCommand = "python -c \"from app.main import create_app; import uvicorn; import os; uvicorn.run(create_app(), host='0.0.0.0', port=int(os.environ.get('PORT', 8000)), log_level='info', reload=False, workers=1)\""
 
 [variables]
 DATABASE_URL = { fromService = "postgres", as = "DATABASE_URL" }
