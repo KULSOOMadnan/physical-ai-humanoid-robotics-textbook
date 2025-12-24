@@ -33,7 +33,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'module1-ros2/module1-intro',
         'module1-ros2/chapter01/introduction-to-physical-ai',
-        'module1-ros2/chapter02/humanoid-robotics-hardware',
+        'module1-ros2/chapter02/ros2-architecture-core-concepts',
         'module1-ros2/chapter03/setting-up-development-environment',
         'module1-ros2/quiz/module1-quiz',
       ],

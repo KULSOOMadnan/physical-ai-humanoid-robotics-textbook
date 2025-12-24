@@ -82,11 +82,11 @@ def create_app() -> FastAPI:
 app = create_app()
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(
-        "main:app",
-        host=get_settings().HOST,
-        port=get_settings().PORT,
-        reload=get_settings().DEBUG,
-    )
+# if __name__ == "__main__":
+#     import uvicorn
+#     uvicorn.run(
+#         "main:app",
+#         host=get_settings().HOST,
+#         port=get_settings().PORT,
+#         reload=get_settings().DEBUG,
+#     )
