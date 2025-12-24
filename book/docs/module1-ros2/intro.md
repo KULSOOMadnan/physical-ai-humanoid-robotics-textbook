@@ -55,8 +55,8 @@ This module is divided into the following chapters, each building logically on t
 - **Chapter 1**: Introduction to Physical AI and Embodied Intelligence  
   *Why intelligence must be grounded in the physical world.*
 
-- **Chapter 2**: Humanoid Robotics Hardware and Sensor Systems  
-  *How robots perceive, measure, and interact with their environment.*
+- **Chapter 2**: ROS 2 Architecture and Core Concepts
+  *Understanding the DDS foundation and communication patterns in ROS 2.*
 
 - **Chapter 3**: Setting Up the ROS 2 Development Environment  
   *From installation to your first working ROS 2 workspace.*
