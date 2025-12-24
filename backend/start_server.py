@@ -51,9 +51,10 @@ def main():
 
     # Import and create the app
     try:
+        print("Creating FastAPI application...")
         from app.main import create_app
         app = create_app()
-        print("Successfully imported and created the application")
+        print("Successfully created the application")
     except ImportError as e:
         print(f"Error importing application: {e}")
         import traceback
