@@ -1,17 +1,16 @@
 from pydantic_settings import BaseSettings
-from pydantic import BaseModel
 from typing import Optional
 
 
-class Settings(BaseModel):
+class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Database
-    DATABASE_URL: str
+    DATABASE_URL: str = "sqlite:///./test.db"
 
     # Qdrant
-    QDRANT_URL: str
-    QDRANT_API_KEY: str
+    QDRANT_URL: str = "http://localhost:6333"
+    QDRANT_API_KEY: str = "dummy-key"
 
     # OpenAI (for compatibility)
     OPENAI_API_KEY: Optional[str] = None
@@ -20,7 +19,7 @@ class Settings(BaseModel):
     GEMINI_API_KEY: Optional[str] = None
 
     # OpenRouter
-    OPENROUTER_API_KEY: str
+    OPENROUTER_API_KEY: str = "dummy-key"
 
     # Cohere (for embeddings)
     COHERE_API_KEY: Optional[str] = None
@@ -34,8 +33,7 @@ class Settings(BaseModel):
     HOST: str = "0.0.0.0"
     PORT: int = 8000
 
-    class Config:
-        env_file = ".env"
+    model_config = {"env_file": ".env"}
 
 # Create a single instance of settings
 _settings = None
