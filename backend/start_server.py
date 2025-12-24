@@ -35,6 +35,70 @@ def install_requirements():
         traceback.print_exc()
         return False
 
+def create_railway_app():
+    """Create a FastAPI app instance without problematic startup events"""
+    from fastapi import FastAPI
+    from fastapi.middleware.cors import CORSMiddleware
+    from app.api.v1.api_router import api_router
+    from app.config.settings import settings
+    from app.core.exceptions import add_exception_handlers
+    from app.config.config_manager import config_manager
+    from app.utils.performance import add_performance_monitoring
+    import logging
+
+    # Configure logging
+    logging.basicConfig(
+        level=getattr(logging, config_manager.get("logging.level", "INFO")),
+        format=config_manager.get("logging.format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    )
+
+    app = FastAPI(
+        title="RAG Chatbot API",
+        description="API for Retrieval-Augmented Generation Chatbot with book intelligence",
+        version="0.1.0",
+        debug=settings.DEBUG,
+    )
+
+    # Add CORS middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # Allow all origins for development
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Add performance monitoring middleware
+    add_performance_monitoring(app)
+
+    # Include API routes
+    app.include_router(api_router, prefix="/api/v1")
+
+    # Add custom exception handlers
+    add_exception_handlers(app)
+
+    # Add routes (without the startup event that connects to Qdrant)
+    @app.get("/health")
+    async def health_check():
+        return {"status": "healthy"}
+
+    @app.get("/config")
+    async def config_check():
+        """Return basic configuration information (without sensitive data)."""
+        return {
+            "status": "healthy",
+            "debug": settings.DEBUG,
+            "llm_provider": config_manager.get("llm.provider"),
+            "database_configured": bool(config_manager.get("database.url")),
+            "qdrant_configured": bool(config_manager.get("qdrant.url"))
+        }
+
+    @app.get("/")
+    async def root():
+        return {"status": "server is running"}
+
+    return app
+
 def main():
     """Main entry point for Railway deployment"""
     print("Starting application...")
@@ -49,11 +113,10 @@ def main():
     sys.path.insert(0, current_dir)
     print(f"Added current directory to path: {current_dir}")
 
-    # Import and create the app
+    # Import and create the app without the problematic startup event
     try:
         print("Creating FastAPI application...")
-        from app.main import create_app
-        app = create_app()
+        app = create_railway_app()
         print("Successfully created the application")
     except ImportError as e:
         print(f"Error importing application: {e}")
