@@ -38,9 +38,20 @@ The combination of Physical AI and humanoid robotics creates a powerful platform
 - **Human-Robot Collaboration**: Creating robots that can work alongside humans safely and effectively
 - **Real-world Applications**: Developing robots for practical use in homes, workplaces, and public spaces
 
+## The Digital-Physical Bridge
+
+One of the core challenges in Physical AI is creating effective bridges between digital computation and physical action. This involves:
+
+1. **Perception-Action Loops**: Continuous cycles where sensors provide input, AI processes information, and actuators produce physical output
+2. **Sim-to-Real Transfer**: Developing systems in simulation that can operate effectively in the real world
+3. **Real-time Processing**: Ensuring computational systems can respond quickly enough to maintain stable physical interactions
+4. **Uncertainty Management**: Handling the inherent uncertainty and noise present in physical systems
+
 ## Course Overview
 
 This comprehensive textbook guides you through the essential concepts and technologies needed to understand and develop Physical AI and humanoid robotics systems. Through four carefully structured modules, you'll journey from foundational concepts to cutting-edge applications in embodied intelligence, with a focus on practical implementation and theoretical understanding.
+
+The course is designed to bridge the **digital brain** (AI models, planning, perception) with the **physical body** (robots, sensors, actuators, physics), enabling students to progress from Physical AI foundations to a simulated autonomous humanoid capstone project using the same concepts, tools, and terminology defined in the curriculum.
 
 ## About This Textbook
 

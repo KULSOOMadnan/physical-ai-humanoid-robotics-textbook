@@ -2,7 +2,7 @@ import os
 import logging
 from typing import Dict, Any, Optional
 from pydantic import BaseModel, ValidationError
-from .settings import settings
+from .settings import get_settings
 
 
 logger = logging.getLogger(__name__)
@@ -23,27 +23,27 @@ class ConfigManager:
         # Load from settings (environment variables)
         self.config = {
             "database": {
-                "url": settings.DATABASE_URL,
+                "url": get_settings().DATABASE_URL,
                 "pool_size": int(os.getenv("DB_POOL_SIZE", "5")),
                 "pool_timeout": int(os.getenv("DB_POOL_TIMEOUT", "30")),
             },
             "qdrant": {
-                "url": settings.QDRANT_URL,
-                "api_key": settings.QDRANT_API_KEY,
+                "url": get_settings().QDRANT_URL,
+                "api_key": get_settings().QDRANT_API_KEY,
                 "collection_name": os.getenv("QDRANT_COLLECTION_NAME", "book_content"),
             },
             "llm": {
                 "provider": os.getenv("LLM_PROVIDER", "openrouter").lower(),
-                "openrouter_api_key": settings.OPENROUTER_API_KEY,
-                "openai_api_key": settings.OPENAI_API_KEY,
-                "cohere_api_key": settings.COHERE_API_KEY,
+                "openrouter_api_key": get_settings().OPENROUTER_API_KEY,
+                "openai_api_key": get_settings().OPENAI_API_KEY,
+                "cohere_api_key": get_settings().COHERE_API_KEY,
                 "default_model": os.getenv("DEFAULT_LLM_MODEL", "openai/gpt-4o-mini"),
             },
             "app": {
-                "debug": settings.DEBUG,
-                "host": settings.HOST,
-                "port": settings.PORT,
-                "api_key": settings.API_KEY,
+                "debug": get_settings().DEBUG,
+                "host": get_settings().HOST,
+                "port": get_settings().PORT,
+                "api_key": get_settings().API_KEY,
                 "cors_origins": os.getenv("CORS_ORIGINS", "").split(",") if os.getenv("CORS_ORIGINS") else [],
             },
             "logging": {
