@@ -7,41 +7,31 @@ import sys
 import subprocess
 
 def install_requirements():
-    """Install packages from requirements.txt"""
+    """Install packages from the Railway-specific requirements file"""
     try:
         current_dir = os.getcwd()
         print(f"Current working directory: {current_dir}")
 
-        # The issue is with the editable install '-e .' in requirements.txt and hash verification
-        # We need to install packages differently to avoid these issues
-        requirements_path = "./requirements.txt"
+        # Use the Railway-specific requirements file without hashes
+        requirements_path = "./requirements_railway.txt"
 
         if not os.path.exists(requirements_path):
-            print(f"requirements.txt not found at: {requirements_path}")
+            print(f"requirements_railway.txt not found at: {requirements_path}")
             return False
 
-        print(f"Found requirements.txt at: {requirements_path}")
+        print(f"Found requirements_railway.txt at: {requirements_path}")
 
-        # Install without hash verification to avoid the hash issues
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--no-deps", "-r", requirements_path])
+        # Install packages from the Railway requirements file
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
 
-        # Then install dependencies separately to resolve any missing dependencies
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--force-reinstall", "--no-deps", "uvicorn[standard]"])
+        # Install the current package in non-editable mode
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "."])
 
-        print("Successfully installed requirements from requirements.txt")
+        print("Successfully installed requirements for Railway deployment")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"Failed to install requirements from requirements.txt: {e}")
-        # Try alternative approach without hash verification
-        try:
-            print("Trying alternative installation method...")
-            # Install with --force-reinstall and --no-cache-dir to avoid hash issues
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "--force-reinstall", "--no-cache-dir", "--no-deps", "-e", "."])
-            print("Successfully installed with alternative method")
-            return True
-        except subprocess.CalledProcessError as e2:
-            print(f"Alternative installation also failed: {e2}")
-            return False
+        print(f"Failed to install requirements: {e}")
+        return False
     except Exception as e:
         print(f"Error finding or installing requirements: {e}")
         import traceback
