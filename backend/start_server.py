@@ -3,6 +3,21 @@
 Start script for Railway deployment
 """
 import os
+
+# Set required environment variables BEFORE any imports to handle settings validation
+required_vars = {
+    'DATABASE_URL': os.environ.get('DATABASE_URL', 'sqlite:///./test.db'),
+    'QDRANT_URL': os.environ.get('QDRANT_URL', 'http://localhost:6333'),
+    'QDRANT_API_KEY': os.environ.get('QDRANT_API_KEY', 'dummy-key'),
+    'OPENROUTER_API_KEY': os.environ.get('OPENROUTER_API_KEY', 'dummy-key'),
+    'COHERE_API_KEY': os.environ.get('COHERE_API_KEY', 'dummy-key'),
+    'DEBUG': os.environ.get('DEBUG', 'True')
+}
+
+for key, value in required_vars.items():
+    os.environ.setdefault(key, value)
+
+# Now continue with the rest of the application
 import sys
 import subprocess
 
@@ -34,24 +49,6 @@ def install_requirements():
         import traceback
         traceback.print_exc()
         return False
-
-def setup_environment():
-    """Set up required environment variables for settings validation"""
-    # Set default values for required settings to allow import to succeed
-    # These will be overridden by Railway environment variables if available
-    default_values = {
-        'DATABASE_URL': 'sqlite:///./test.db',  # Default to SQLite for startup
-        'QDRANT_URL': 'http://localhost:6333',  # Default to localhost for startup
-        'QDRANT_API_KEY': 'dummy-key',  # Dummy key for startup
-        'OPENROUTER_API_KEY': 'dummy-key',  # Dummy key for startup
-        'COHERE_API_KEY': 'dummy-key',  # Dummy key for startup
-        'DEBUG': 'true'
-    }
-
-    for key, value in default_values.items():
-        if not os.environ.get(key):
-            os.environ[key] = value
-            print(f"Set default environment variable: {key}")
 
 def create_railway_app():
     """Create a FastAPI app instance without problematic startup events"""
@@ -126,9 +123,6 @@ def main():
     if not install_requirements():
         print("Could not install requirements, exiting...")
         sys.exit(1)
-
-    # Set up environment variables before importing modules that require them
-    setup_environment()
 
     # Add current directory to path (since backend is root in Railway)
     current_dir = os.path.dirname(os.path.abspath(__file__))

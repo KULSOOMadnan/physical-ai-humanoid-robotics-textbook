@@ -8,7 +8,9 @@ week: "Weeks 1-2"
 
 # Introduction to Physical AI and Embodied Intelligence
 
-Welcome to the fascinating field of Physical AI and Humanoid Robotics! This textbook will guide you through the essential concepts and technologies needed to bridge the gap between artificial intelligence in digital spaces and its physical embodiment in robots that interact with our world. This course is designed to provide comprehensive coverage of the Physical AI curriculum, focusing on practical implementation and theoretical understanding.
+Welcome to the fascinating field of Physical AI and Humanoid Robotics! This textbook will guide you through the essential concepts and technologies needed to bridge the gap between artificial intelligence in digital spaces and its physical embodiment in robots that interact with our world. This comprehensive curriculum is designed to provide complete coverage of the Physical AI and Humanoid Robotics curriculum through four carefully structured modules, focusing on practical implementation and theoretical understanding.
+
+This first module introduces you to **ROS 2 (Robot Operating System 2)**, which serves as the nervous system of modern humanoid robots. ROS 2 is not an actual operating system but rather a flexible framework for writing robot software. It provides services such as hardware abstraction, device drivers, libraries, visualizers, message-passing, package management, and more. Understanding ROS 2 is crucial for developing humanoid robotics applications, as it enables seamless communication between different robot components and facilitates the integration of perception, planning, and action systems.
 
 ## Learning Objectives
 
@@ -83,6 +85,30 @@ Exteroceptive sensors gather information about the external environment:
 *   **Cameras (RGB, Depth, Stereo)**: Provide visual information. RGB cameras capture color, depth cameras (e.g., Intel RealSense, Microsoft Kinect) provide distance information, and stereo cameras mimic human binocular vision for 3D perception.
 *   **Tactile Sensors**: Provide touch feedback, allowing robots to understand contact, pressure, and texture.
 *   **Audio Sensors**: Capture sound and speech for human-robot interaction and environmental awareness.
+
+## Understanding ROS 2: The Robotic Nervous System
+
+The **Robotic Operating System 2 (ROS 2)** serves as the nervous system of modern humanoid robots, providing the communication infrastructure that connects all components of a robotic system. Despite its name, ROS 2 is not an actual operating system but rather a flexible framework for writing robot software. It provides services such as hardware abstraction, device drivers, libraries, visualizers, message-passing, and package management.
+
+### Key Components of ROS 2
+
+**Nodes**: Individual processes that perform computation. In a humanoid robot, nodes might handle camera processing, motor control, path planning, or sensor fusion.
+
+**Topics**: Named buses over which nodes exchange messages. Topics enable asynchronous communication between nodes, such as sensor data being published by one node and consumed by multiple others.
+
+**Services**: Synchronous request/response communication patterns, useful for actions that require a specific response, like requesting a specific robot pose or calibration.
+
+**Actions**: Asynchronous request/response patterns with feedback, ideal for long-running tasks like navigation or manipulation where you need to monitor progress.
+
+### Why ROS 2 for Humanoid Robots?
+
+ROS 2 is particularly well-suited for humanoid robotics due to its:
+
+- **Distributed Architecture**: Allows different parts of the robot (arms, legs, head) to run on separate computational units while maintaining seamless communication
+- **Real-time Capabilities**: Supports real-time systems critical for robot control and safety
+- **Extensive Ecosystem**: Large community and pre-built packages for common robotics tasks
+- **Simulation Integration**: Seamless transition between simulated and real robots
+- **Multi-language Support**: Allows different components to be written in different programming languages (C++, Python, etc.)
 
 ## The Digital-Physical Bridge
 

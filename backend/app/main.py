@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1.api_router import api_router
-from app.config.settings import settings
+from app.config.settings import get_settings
 from app.config.qdrant import qdrant_config
 from app.core.exceptions import add_exception_handlers
 from app.config.config_manager import config_manager, validate_deployment_config
@@ -26,7 +26,7 @@ def create_app() -> FastAPI:
         title="RAG Chatbot API",
         description="API for Retrieval-Augmented Generation Chatbot with book intelligence",
         version="0.1.0",
-        debug=settings.DEBUG,
+        debug=get_settings().DEBUG,
     )
 
     # Add CORS middleware
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
         "main:app",
-        host=settings.HOST,
-        port=settings.PORT,
-        reload=settings.DEBUG,
+        host=get_settings().HOST,
+        port=get_settings().PORT,
+        reload=get_settings().DEBUG,
     )
