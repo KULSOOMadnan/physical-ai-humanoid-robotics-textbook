@@ -35,8 +35,27 @@ def install_requirements():
         traceback.print_exc()
         return False
 
+def setup_environment():
+    """Set up required environment variables for settings validation"""
+    # Set default values for required settings to allow import to succeed
+    # These will be overridden by Railway environment variables if available
+    default_values = {
+        'DATABASE_URL': 'sqlite:///./test.db',  # Default to SQLite for startup
+        'QDRANT_URL': 'http://localhost:6333',  # Default to localhost for startup
+        'QDRANT_API_KEY': 'dummy-key',  # Dummy key for startup
+        'OPENROUTER_API_KEY': 'dummy-key',  # Dummy key for startup
+        'COHERE_API_KEY': 'dummy-key',  # Dummy key for startup
+        'DEBUG': 'true'
+    }
+
+    for key, value in default_values.items():
+        if not os.environ.get(key):
+            os.environ[key] = value
+            print(f"Set default environment variable: {key}")
+
 def create_railway_app():
     """Create a FastAPI app instance without problematic startup events"""
+    # Import after setting environment variables
     from fastapi import FastAPI
     from fastapi.middleware.cors import CORSMiddleware
     from app.api.v1.api_router import api_router
@@ -107,6 +126,9 @@ def main():
     if not install_requirements():
         print("Could not install requirements, exiting...")
         sys.exit(1)
+
+    # Set up environment variables before importing modules that require them
+    setup_environment()
 
     # Add current directory to path (since backend is root in Railway)
     current_dir = os.path.dirname(os.path.abspath(__file__))
