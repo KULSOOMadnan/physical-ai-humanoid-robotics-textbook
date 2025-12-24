@@ -9,8 +9,9 @@ import subprocess
 def install_requirements():
     """Install packages from requirements.txt"""
     try:
-        # Install packages from requirements.txt
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        # Install packages from requirements.txt using the full path
+        requirements_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "backend", "requirements.txt")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
         print("Successfully installed requirements from requirements.txt")
         return True
     except subprocess.CalledProcessError:
