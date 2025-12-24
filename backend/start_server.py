@@ -56,7 +56,7 @@ def create_railway_app():
     from fastapi import FastAPI
     from fastapi.middleware.cors import CORSMiddleware
     from app.api.v1.api_router import api_router
-    from app.config.settings import settings
+    from app.config.settings import get_settings
     from app.core.exceptions import add_exception_handlers
     from app.config.config_manager import config_manager
     from app.utils.performance import add_performance_monitoring
@@ -72,7 +72,7 @@ def create_railway_app():
         title="RAG Chatbot API",
         description="API for Retrieval-Augmented Generation Chatbot with book intelligence",
         version="0.1.0",
-        debug=settings.DEBUG,
+        debug=get_settings().DEBUG,
     )
 
     # Add CORS middleware
@@ -103,7 +103,7 @@ def create_railway_app():
         """Return basic configuration information (without sensitive data)."""
         return {
             "status": "healthy",
-            "debug": settings.DEBUG,
+            "debug": get_settings().DEBUG,
             "llm_provider": config_manager.get("llm.provider"),
             "database_configured": bool(config_manager.get("database.url")),
             "qdrant_configured": bool(config_manager.get("qdrant.url"))

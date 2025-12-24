@@ -2,7 +2,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from typing import Optional
 import logging
-from app.config.settings import settings
+from app.config.settings import get_settings
 
 
 logger = logging.getLogger(__name__)
@@ -19,15 +19,15 @@ class QdrantConfig:
         """
         # Initialize Qdrant client
         self.client = QdrantClient(
-            url=settings.QDRANT_URL,
-            api_key=settings.QDRANT_API_KEY,
+            url=get_settings().QDRANT_URL,
+            api_key=get_settings().QDRANT_API_KEY,
             prefer_grpc=False  # Using HTTP for better compatibility
         )
 
         # Collection name for book content embeddings
         self.collection_name = "book_content_embeddings"
 
-        logger.info(f"Qdrant client initialized with URL: {settings.QDRANT_URL}")
+        logger.info(f"Qdrant client initialized with URL: {get_settings().QDRANT_URL}")
 
     def get_client(self) -> QdrantClient:
         """

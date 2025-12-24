@@ -2,7 +2,7 @@
 Database initialization script for the RAG Chatbot
 """
 from sqlalchemy import create_engine, text
-from app.config.settings import settings
+from app.config.settings import get_settings
 from app.models.book_content import BookContent
 from app.models.query_session import QuerySession
 from app.models.retrieved_chunk import RetrievedChunk

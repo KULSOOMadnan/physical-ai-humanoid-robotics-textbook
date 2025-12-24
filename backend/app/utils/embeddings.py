@@ -4,7 +4,7 @@ from typing import List, Union
 import numpy as np
 import tiktoken
 import httpx
-from app.config.settings import settings
+from app.config.settings import get_settings
 
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ class EmbeddingGenerator:
         """
         Initialize the embedding generator with Cohere client.
         """
-        self.api_key = settings.COHERE_API_KEY  # Need to add COHERE_API_KEY to settings
+        self.api_key = get_settings().COHERE_API_KEY  # Need to add COHERE_API_KEY to settings
         self.model = "embed-english-v3.0"  # Using Cohere's free embedding model
         # Use a common encoding; tiktoken encoding might need to be adjusted based on the model
         self.encoding = tiktoken.get_encoding("cl100k_base")

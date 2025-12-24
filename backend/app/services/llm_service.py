@@ -3,7 +3,7 @@ from typing import List, Optional
 import asyncio
 from openai import AsyncOpenAI
 from agents import Agent, Runner, OpenAIChatCompletionsModel, set_tracing_disabled
-from app.config.settings import settings
+from app.config.settings import get_settings
 from app.models.retrieved_chunk import RetrievedChunk
 from app.schemas.query import SourceAttribution
 from app.core.exceptions import GenerationError
@@ -25,7 +25,7 @@ class LLMService:
     def __init__(self):
         # Create AsyncOpenAI client for OpenRouter
         self.client = AsyncOpenAI(
-            api_key=settings.OPENROUTER_API_KEY,
+            api_key=get_settings().OPENROUTER_API_KEY,
             base_url="https://openrouter.ai/api/v1"
         )
 
@@ -34,7 +34,7 @@ class LLMService:
             name="RAG Book Assistant",
             instructions="You are an expert AI assistant for the Physical AI & Humanoid Robotics \n Textbook. Your role is to answer user questions by synthesizing information from the provided context into clear, well-structured responses.\n\nBEHAVIOR:\n1. For greetings (hello, hi, hey, good morning, etc.) and general conversation: respond with a friendly greeting and invite questions about the textbook content.\n2. For content-related questions: synthesize information into comprehensive, well-formatted answers.\n\nGUIDELINES:\n1. Always format responses clearly with proper structure (introduction, body, conclusion when appropriate)\n2. NEVER return raw textbook content with phrases like 'Based on the textbook content:', 'According to the book:', 'Source:', or similar.\n3. Instead, synthesize the information into a comprehensive answer that directly addresses the user's question\n4. Use proper formatting: bullet points, numbered lists, or sections when appropriate\n5. If multiple sources are provided, integrate the information cohesively rather than listing sources\n6. If the context doesn't contain sufficient information to answer the question, clearly state this\n7. Maintain a professional, educational tone appropriate for academic content\n8. Focus on providing valuable insights rather than just copying text\n\nYour responses should be informative, well-organized, and directly address what the user asked.",
             model=OpenAIChatCompletionsModel(
-                model=settings.DEFAULT_LLM_MODEL,  # Use model from settings
+                model=get_settings().DEFAULT_LLM_MODEL,  # Use model from settings
                 openai_client=self.client
             )
         )

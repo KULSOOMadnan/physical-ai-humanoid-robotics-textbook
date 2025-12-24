@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from app.services.book_content_processor import book_content_processor
 from app.services.vector_store import vector_store_service
 from app.config.qdrant import qdrant_config
-from app.config.settings import settings
+from app.config.settings import get_settings
 
 async def clear_and_reindex_book():
     """Clear existing documents and re-index book content from the website"""

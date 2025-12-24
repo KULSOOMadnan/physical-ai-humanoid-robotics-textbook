@@ -112,8 +112,8 @@ def add_performance_monitoring(app):
         perf_monitor._log_metric(f"request_{request.method}_{request.url.path}", execution_time)
 
         # Add performance header to response (only in debug mode)
-        from app.config.settings import settings
-        if settings.DEBUG:
+        from app.config.settings import get_settings
+        if get_settings().DEBUG:
             response.headers["X-Response-Time"] = f"{execution_time:.3f}s"
 
         return response
