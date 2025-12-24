@@ -3,7 +3,7 @@ builder = "nixpacks"
 command = "pip install --upgrade pip && pip install -r requirements_railway.txt"
 
 [deploy]
-startCommand = "python start_server.py"
+startCommand = "DATABASE_URL='sqlite:///./test.db' QDRANT_URL='http://localhost:6333' QDRANT_API_KEY='dummy-key' OPENROUTER_API_KEY='dummy-key' COHERE_API_KEY='dummy-key' DEBUG='true' python -c \"from app.main import create_app; import uvicorn; uvicorn.run(create_app(), host='0.0.0.0', port=int(${PORT:-8000}), log_level='info', reload=False, workers=1)\""
 
 [variables]
 DATABASE_URL = { fromService = "postgres", as = "DATABASE_URL" }
