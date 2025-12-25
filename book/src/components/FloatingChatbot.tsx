@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 const FloatingChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, type: 'bot', content: 'Hello! I\'m your AI assistant for the Physical AI & Humanoid Robotics Textbook. I\'m connected to the RAG system and ready to answer questions about the textbook content. Ask me anything!' }
+    { id: 1, type: 'bot', content: 'Hello! I\'m your AI assistant for the Physical AI & Humanoid Robotics Textbook. Ask me anything!' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ const FloatingChatbot = () => {
 
     try {
       // Call the backend API with proper headers
-      const response = await fetch('http://localhost:8000/api/v1/query/', {
+      const response = await fetch('https://physical-ai-humanoid-robotics-textbook-production-06f9.up.railway.app/api/v1/query/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,55 +80,62 @@ const FloatingChatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="floating-chat">
       {isOpen ? (
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 w-80 h-[500px] flex flex-col">
+        <div className="chat-container">
           {/* Chat Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-t-2xl p-4 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <span className="text-xl">📖</span>
-              <h3 className="font-bold">Textbook AI</h3>
+          <div className="chat-header">
+            <div className="chat-header-content">
+              <div className="chat-header-icon">🤖</div>
+              <div>
+                <h3 className="chat-header-title">AI Assistant</h3>
+                <p className="chat-header-subtitle">Physical AI & Humanoid Robotics Textbook</p>
+              </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+              className="close-button"
+              aria-label="Close chat"
             >
               ✕
             </button>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+          <div className="chat-messages">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`mb-3 p-3 rounded-lg ${
-                  message.type === 'user'
-                    ? 'bg-blue-500 text-white ml-auto max-w-[85%] text-right'
-                    : 'bg-gray-200 text-gray-800 mr-auto max-w-[85%]'
-                }`}
+                className={`message ${message.type === 'user' ? 'user-message' : 'bot-message'}`}
               >
-                <div className="font-semibold text-xs mb-1">
-                  {message.type === 'user' ? 'You' : 'AI Assistant'}
+                <div className="message-content">
+                  {message.type === 'bot' && (
+                    <>
+                      <strong className="assistant-label">AI Assistant:</strong>
+                      <br />
+                    </>
+                  )}
+                  {message.content}
                 </div>
-                <div className="text-sm">{message.content}</div>
 
                 {message.sources && message.sources.length > 0 && (
-                  <details className="mt-2 text-xs">
-                    <summary className="text-blue-600 cursor-pointer font-medium">Show Sources ({message.sources.length})</summary>
-                    <div className="mt-2 space-y-2">
+                  <details className="sources-container">
+                    <summary>
+                      📚 Sources ({message.sources.length})
+                    </summary>
+                    <div>
                       {message.sources.map((source, idx) => (
-                        <div key={idx} className="bg-blue-50 p-3 rounded-lg border border-blue-100">
-                          <div className="font-medium text-blue-700 mb-1">Source {idx + 1} (Score: {(source.relevance_score * 100).toFixed(1)}%)</div>
+                        <div key={idx} className="source-item">
+                          <div className="font-medium">Source {idx + 1} (Score: {(source.relevance_score * 100).toFixed(1)}%)</div>
                           {source.section_title && (
-                            <div className="text-xs text-gray-600 mb-1"><strong>Section:</strong> {source.section_title}</div>
+                            <div className="text-xs"><strong>Section:</strong> {source.section_title}</div>
                           )}
                           {source.page_number && (
-                            <div className="text-xs text-gray-600 mb-1"><strong>Page:</strong> {source.page_number}</div>
+                            <div className="text-xs"><strong>Page:</strong> {source.page_number}</div>
                           )}
                           <div className="text-sm mt-1">{source.content}</div>
                           {source.citation && (
-                            <div className="text-xs text-gray-500 mt-1 italic">{source.citation}</div>
+                            <div className="text-xs italic">{source.citation}</div>
                           )}
                         </div>
                       ))}
@@ -138,11 +145,11 @@ const FloatingChatbot = () => {
               </div>
             ))}
             {isLoading && (
-              <div className="mb-3 p-3 rounded-lg bg-gray-200 text-gray-800 mr-auto max-w-[85%]">
-                <div className="font-semibold text-xs mb-1">AI Assistant</div>
-                <div className="flex items-center gap-2">
-                  <span>Thinking...</span>
-                  <span className="animate-pulse">💬</span>
+              <div className="typing-indicator">
+                <div className="typing-dots">
+                  <div className="typing-dot"></div>
+                  <div className="typing-dot"></div>
+                  <div className="typing-dot"></div>
                 </div>
               </div>
             )}
@@ -150,21 +157,23 @@ const FloatingChatbot = () => {
           </div>
 
           {/* Chat Input */}
-          <div className="p-3 border-t border-gray-200 bg-white">
-            <div className="flex gap-2">
+          <div className="chat-input-area">
+            <div className="input-container">
               <textarea
-                className="flex-1 border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                placeholder="Ask a question..."
+                className="chat-input"
+                placeholder="Ask question..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 disabled={isLoading}
-                rows={2}
+                rows={1}
+                aria-label="Type your message"
               />
               <button
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg p-2 transition-colors disabled:opacity-50"
+                className="send-button"
                 onClick={sendMessage}
                 disabled={isLoading || !inputValue.trim()}
+                aria-label="Send message"
               >
                 <span className="text-lg">➤</span>
               </button>
@@ -174,9 +183,10 @@ const FloatingChatbot = () => {
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow"
+          className="chat-button"
+          aria-label="Open chat"
         >
-          <span className="text-2xl">📖</span>
+          <span>🤖</span>
         </button>
       )}
     </div>
